@@ -1,0 +1,9 @@
+# Preface {.unnumbered}
+
+This book will teach you the basics of R for data science. Consider this a handbook that you can use to understand the end-to-end process of importing, exploring, cleaning, manipulating, summarizing, describing, visualizing and analyzing your data. You can work through the book and replicate all of the examples provided, using datasets that are already built into R. Each section includes a QR code that you can scan on your phone that will take you to a video lesson that complements the text of that chapter. The chapters have been written so that it can also be used as a stand-alone reference to solve specific problems - so you can quickly find solutions to problems that you might encounter while working with your data.
+
+### Also include:
+
+-   installation
+
+-   getting help online

@@ -1,0 +1,27 @@
+# Exploring data quantitatively
+
+If visualizations tell the data's story, the numbers are the plot. Here we learn essential tools for summarizing and quantifying various aspects of data sets
+
+## Basic exploratory functions (head, summary, glimpse, etc)
+
+2 pages
+
+## Functions for summarizing variables
+
+-   quantitative (quantile, sd, etc)
+
+-   categorical (table, etc)
+
+2 pages
+
+## Grouped summaries
+
+-   introduce the pipe here
+
+7 pages
+
+## Missing data
+
+What specifically belongs here?
+
+1 page

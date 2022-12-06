@@ -1,0 +1,55 @@
+# Getting technical
+
+Real-world data sets have real-world quirks that often require more sophisticated, specialized tools. In this chapter, we develop some additional powerful techniques for dealing with wild-caught data sets.
+
+## Relational data
+
+-   rbind and cbind
+
+-   left_join (mention other mutating joins but don't dwell)
+
+-   filtering joins (brief)
+
+7 pages
+
+## Dates and times
+
+4 pages
+
+## Factor variables
+
+5 pages
+
+## Strings
+
+regex goes here
+
+2 pages
+
+## User-defined functions
+
+3 pages
+
+## Lists, esp of data frames
+
+2 pages
+
+## Iteration
+
+-   loops
+
+-   lapply
+
+4 pages
+
+## R and OOP (Mostly references)
+
+## Importing data (move elsewhere)
+
+-   more on readr and readxl functions. Skipping lines, etc
+
+-   other formats. Stata, spss, etc
+
+-   data from the web
+
+4 pages

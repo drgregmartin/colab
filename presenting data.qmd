@@ -1,0 +1,47 @@
+# Presenting data
+
+A data analysis isn't complete until it's shared with others, and it won't be accepted unless it's presented in a clear and professional manner. In this chapter, we learn how to do just that, as well as building tools for working collaboratively with others on larger projects.
+
+## Quarto
+
+-   markup syntax vs visual editor. Links, bullet points, italics, formatting, etc
+
+-   R/python/etc code chunks
+
+-   sections, footnotes, etc.
+
+-   including technical symbols
+
+-   including images
+
+-   tables
+
+-   Mention R Markdown
+
+10 pages
+
+## Visualization for communication
+
+-   annotations and labels
+
+-   colors
+
+-   themes
+
+-   accessibility
+
+-   dataviz best practices
+
+8 pages
+
+## Portability and reproducibility
+
+2 pages
+
+## Git and github
+
+-   version control with git
+
+-   collaboration with github
+
+12 pages

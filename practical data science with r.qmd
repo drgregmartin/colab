@@ -1,0 +1,39 @@
+# Practicing good data science with R
+
+Now that we've developed some basic facility for working with data in R, it's time to think about our process a little bit. What does good data science in R look like? How should we stay organized? How can we make sure that we can understand and replicate our own work even if real life distracts us for a few days or weeks?
+
+## Projects
+
+By now you've probably started a folder somewhere on your machine with a nondescript title like, "R" or "R practice," perhaps on your desktop or in your documents folder. As your data science skills grow, however, you'll find yourself working on more complicated tasks, each of which might require multiple scripts, spreadsheets, and other files. Having an organizational system in place becomes essential for at least three reasons:
+
+-   Your own sanity
+
+-   R's ability to find files when asked
+
+-   Your collaborators' ability to reproduce your work. This includes future you!
+
+RStudio provides a convenient tool helping with all of this: the project.
+
+## Importing flat files (csv and excel)
+
+Previously we've imported data with R Studio's file browser. Here we get a little more into the code.
+
+2 pages
+
+## Writing data sets
+
+1 page
+
+## Best practices for readable code
+
+-   naming conventions
+
+-   snake case
+
+-   comments
+
+-   spacing and indenting
+
+-   the tidyverse style guide
+
+3 pages

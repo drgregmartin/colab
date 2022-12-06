@@ -1,0 +1,49 @@
+# Modeling data
+
+If you've gotten this far, there are probably many questions that you may be trying to answer using your data. The possibilities are endless here, but we will focus on some of the most common and basic questions and data analyses methods that you may want to use.
+
+## Single-variable techniques
+
+-   Confidence intervals and sig tests with t.test
+
+-   Chi-squared goodness-of-fit test
+
+5 pages
+
+## Other practical tools from stats 101
+
+-   Paired and unpaired 2-sample techniques
+
+-   Chi-squared test for independence
+
+-   Correlation
+
+-   Anova
+
+8 pages
+
+## Regression modeling
+
+-   Basic use of lm. Interpreting the output of a model summary
+
+-   Diagnostic plots
+
+-   Adding a categorical explainer
+
+-   Additional quantitative explainers
+
+-   Model selection: anova, adjusted $R^2$, AIC
+
+-   Tidying with broom
+
+-   Interpolation and prediction
+
+15 pages
+
+## Logistic regression
+
+Repeat much of the above. Approx 12 pages
+
+## Going deeper
+
+A quick survey of some of the other machine learning tools available in R, tidymodels in particular.

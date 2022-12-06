@@ -1,0 +1,25 @@
+# Manipulating data
+
+Wild-caught data sets usually d don't include exactly the variables we want. Learn how to carve out the fat and add meat where it's needed.
+
+## Editing cells and columns directly
+
+2 pages
+
+## mutate
+
+2 pages jhjjh
+
+## select
+
+-   tidyselect syntax more generally
+
+3 pages
+
+## filter and arrange (row selection and ordering)
+
+3 pages
+
+## group_by and summarize revisited
+
+2 pages

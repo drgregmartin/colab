@@ -1,0 +1,237 @@
+# Your First R Session
+
+When you first open RStudio, you may feel a bit overstimulated. By default, there are three separate panes, all of which have multiple tabs. Don't worry! While all of these have their uses, as we'll see, you can safely ignore nearly all of it when you're getting started. For the moment, we'll stick to the *Console* pane (the one with the old-school text welcome message).
+
+![RStudio's default startup screen](images/startup_screen.png){fig-alt="RStudio's default startup screen" fig-align="center" width="510"}
+
+## Simple calculations
+
+At the most basic level, R is just a scientific calculator. You can do all the usual arithmetic operations, either one at a time or all at once.
+
+```{r, arithmetic}
+(3 * 2 + 1) ^ 2
+```
+
+All the grey boxes in this chapter show code from the console, together with the resulting output. Obviously, you should be coding along and experimenting as you read!
+
+As you can see, R follows standard order of operations. It also includes the full variety of standard mathematical functions, like absolute value and sine, as well as values for important constants like $\pi$.
+
+```{r, math functions}
+abs(-12)
+sin(pi/2)
+```
+
+Don't worry - we're done with trig for the rest of this book.
+
+## Variables and assignment
+
+As in any programming language, you can assign values to variables and then use those variables in your calculations. These variables don't have to be single letters; in fact, as a general rule you should avoid gibberish names.
+
+```{r, variables and assignment}
+my_variable <- 12
+my_variable + 2
+```
+
+In R, the left arrow is used for assignment. While an equal sign (the norm in most languages) will work in R, it's better to reserve that symbol for other things. This makes sense for a number of reasons, including this one: the mathematical equal sign is symmetric (so a=b is the same thing as b=a), while assignment is directional.
+
+Notice that in the above code chunk, the calculation auto-printed by default, but the assignment didn't. We got output back after the second line but not the first. Both of these are typical R behavior.
+
+As a matter of practice, you should give your variables descriptive names even when it adds a few keystrokes to your workflow. Eventually, your code will get complicated and you'll be sharing it with others who will appreciate explicit clues as to what everything means. In general, the best variables names are nouns that are both descriptive and brief.
+
+## Vectors and functions of vectors
+
+When working with data, you'll usually have many observations of each variable. Most of R's core functions are built explicitly to respect this need, starting with variable assignment. For instance, the following code stores five temperature readings in a single vector and then takes their average.
+
+```{r, vector}
+temp <- c(98.2, 97.9, 98.5, 98.2, 98.4)
+mean(temp)
+```
+
+A vector in R is just an ordered sequence of numbers (or other type of data, as we'll discuss in the next chapter). The letter `c`, which stands for *concatenate*, lets R know that a vector is being created.
+
+There are many, many functions which, like `mean()`, take vectors as arguments and give individual numbers back. A few other common ones are `sd()`, `sum()`, `min()`, `max()`, and `length()`. Explore to find more!
+
+Other functions return a vector instead. For instance, you might be able to guess what `sort(temp)` will return. But can you figure out what `diff()` is doing in the following chunk?
+
+```{r diff}
+diff(temp)
+```
+
+## Vectorized operations
+
+Most computations in R are vectorized, meaning that they can be applied as easily to vectors as individual values. For instance, the following code converts every value in the `temps` vector from Fahrenheit to Centigrade, then prints the result.
+
+```{r, vectorization}
+temp_c <- (temp - 32) * 5/9
+temp_c
+```
+
+Addition, subtraction, multiplication, and division of vectors is handled component-wise, meaning that R always looks at corresponding elements of the vectors in question.
+
+```{r, subtracting vectors}
+ambient_temp <- c(68.2, 69.3, 67.3, 70.0, 68.3)
+temp - ambient_temp
+```
+
+If you're a math person, you should take particular note of the fact that multiplication works this way as well, regardless of what you were taught in linear algebra class.
+
+```{r, multiplying vectors}
+temp * c(2, 4, 3, 10, 1)
+```
+
+Most built-in R functions are also vectorized, meaning they will operate component-wise in the natural way. For instance, the following code takes the natural logarithm of all the temperatures in our little data set.
+
+```{r, temp logs}
+log(temp)
+```
+
+## Optional arguments
+
+Many R functions give the user the option of specifying additional information to refine the way the inputs are processed. The `log()` functions is a case in point. By default, it compute the natural logarithm, that is, the logarithm with base $e$. We can change this by specifying the `base` argument.
+
+```{r, round}
+log(temp, base = 10)
+```
+
+While R will often allow you to omit the name of the argument, as in the following chunk, you should be judicious in your use of that shortcut.
+
+```{r, omit argument name}
+log(temp, 10)
+```
+
+Clear code helps minimize errors and makes troubleshooting easier - well worth the investment of a few extra keystrokes.
+
+## The *Environment* and *History* tabs
+
+For the first time, let's look at a pane other than the console. In the upper-right quadrant of your RStudio window, you have two helpful tabs. The first of these, *Environment*, shows all the user-defined objects that R currently has stored in it's memory. Currently there are four vectors, `ambient_temp`, `my_variable`, `temp`, and `temp_c`. All are numeric vectors (we'll learn about other types of vectors shortly) and all except `my_variable` have length 5. Since the length of `my_variable` is one, RStudio just displays its value, not its structure, in the *Environment* pane.
+
+Next to this is the *History* tab, which shows commands that have been executed recently. If you want to re-run one of these commands, you can double-click to send it to the console, where it can be executed as usual.
+
+## Importing spreadsheets
+
+While reading data into R (or any other system) can get complicated, RStudio makes it easy to import the most common sort of set: the spreadsheet. In the lower-right pane, you'll find a tab labelled *Files*, which you can use to browse around your machine until you find the spreadsheet you need.
+
+(insert image with arrows)
+
+```{r, include = FALSE}
+library(readr)
+library(here)
+file <- here("data", "temperatures.csv")
+temperatures <- read_csv(file)
+```
+
+Notice the breadcrumbs at the top of the *Files* pane describing your current location. Clicking on one of these will move you back toward your root, while clicking folders in the browser itself will move you away from it. Once you've found the file you want, select it and then click *Import Dataset* from the little menu that appears.
+
+\[image showing import of *temperatures.csv*\]
+
+A warning to those of you that might be more experienced coders: navigating around in *Files* tab doesn't change R's working directory, as you can check with `getwd()`. While it is possible to change your working directory with `setwd()`, that's usually not best practice for the working data scientist. More about this in chapter (insert ref).
+
+You'll now get a popup showing, among other things, a preview of the spreadsheet and a recommended code snippet to import it. For most day-to-day purposes, it's totally fine to ignore this window entirely and just click the *Import* button, which will close the popup and execute the snippet. For more details about how to customize all of this, see chapter (insert ref).
+
+The spreadsheet is now saved in R's working memory, as you can see by checking the *Environment* tab. RStudio will also automatically open up a fuller preview of the set in a new pane in the upper-left. You can scan around, search, and sort by column values here, if you like.
+
+If you look back to your console, you'll see the code that RStudio has used to make all this happen. We'll put off talking about `library()` until in the next chapter and `read_csv()` much later (insert ref), but `View()` is worth noticing right away. This is the command that actually caused R to display the data set in that new pane. You'll find yourself using this simple command throughout your data science career.
+
+The spreadsheet view is intended as a convenience, not as a real working tool. R is fundamentally different in its approach than spreadsheet software like Excel, and any real data reorganization or manipulation will take place via our code.
+
+## Working with data sets
+
+Fundamentally, R views a data frame like `temperatures` as a collection of columns, each of which is a vector. To refer to one of these vectors, use the format *set\$variable*, like so:
+
+```{r, df columns}
+temperatures$ambient_temp
+```
+
+You can do all the usual things to such a vector, like finding its median.
+
+```{r, median of column}
+median(temperatures$ambient_temp)
+```
+
+As one might hope, you can add or modify a column with the assignment operator:
+
+```{r, add column}
+temperatures$difference <- temperatures$temp - temperatures$ambient_temp
+temperatures
+```
+
+In chapter (ref) we'll learn a more general and flexible (but also more verbose) way to add or change columns in a data frame using the `mutate()` command.
+
+There are many functions in R that accept data frames as arguments. For instance, `nrow(temperatures)` and `ncol(temperatures)` return the length and width, respectively, of the data frame, while `colnames(temperatures)` returns, well, the column names. Finally, `summary()` will provide a six-number summary of each quantitative variable in the set. Try it!
+
+```{r}
+summary(temperatures)
+```
+
+## Built-in data sets
+
+R comes with quite a few data sets pre-loaded for you to practice with. For instance, the `faithful` set includes 272 observations of eruptions of the Old Faithful geyser in Wyoming, USA. Take a look at the set with `View(faithful)` and learn a little more about it with `?faithful`.
+
+You can do all the same things with `faithful` as you can with the imported data set `temperatures`. For instance, `faitful$eruptions` is a vector of length 272 and `mean(faithful$eruptions)` gives its numerical average (about 3.5 minutes). We can already begin to explore relationships between variables, for instance by computing the correlation between eruption length and time between eruptions.
+
+```{r}
+cor(faithful$eruptions, faithful$waiting)
+```
+
+You can see a complete listing of R's built-in data sets with `data()`.
+
+## Installing and using R packages
+
+R is open-source software, meaning that it's not owned by any for-profit corporation, and is constantly being expanded and made more powerful by its community of users. The Comprehensive R Archive Network (CRAN for short) houses over 18,000 packages, collections of functions and other goodies that you can install and use directly from the R console. The *packages* tab in the lower-right pane of RStudio shows just a small selection of those available.
+
+Over time, some packages have become so widely-adopted as to be almost core to R itself. Chief among these are the so-called *tidyverse* family of packages, which are maintained by Posit, the company that makes RStudio itself. The tidyverse consists of eight core packages, nearly all of which we'll make use of in this book and which we wholeheartedly recommend for your day-to-day data analysis practice. Install these tools right away with
+
+```{r, eval = FALSE}
+install.packages("tidyverse")
+```
+
+While this command will download and install the tidyverse packages onto your machine, it won't make them available for you to use until you ask.
+
+```{r}
+library(tidyverse)
+```
+
+You only need to execute the `install.packages()` command once per packages, but you'll need to type `library()` at the start of every new session where you want to use it. In this way, packages are similar to any other sort of software: generally you only need to install them once, but you need to explicitly open them every time you want to use them.
+
+## More about data sets in R
+
+If you type `data()` again after loading tidyverse, you'll see that there are now many more practice data sets available to you. One of the most standard of these is the `mpg` set, which includes fuel-efficiency data on 234 cars from model years 1999 and 2008. As with `faithful`, you can learn more about this set with `?mpg`.
+
+Instead of viewing this set, let's use one of the new functions we imported with `library(tidyverse)`.
+
+```{r}
+glimpse(mpg)
+```
+
+The `glimpse()` command from the {dplyr} packages does exactly what its name implies, giving you a neat listing of all the columns in the set along with the first few values of each. By design, this isn't nearly as expansive as the output of `View()`, focusing attention on the structure of the set rather than individual observations.
+
+Take notice of the second column in the output above. Here, `glimpse()` is telling us the data type of each of the vectors making up the `mpg` set, `<chr>` for character (strings of letters and other symbols), `<dbl>` for decimal numbers (technically double-precision floating-point decimal), and `<int>` for integer. While there are many different data types in R, including date-times (\<dttm\>) and factors (\<fct\>), 95% of the time it's fine to just think of your vectors either as numeric (doubles, integers and the like) or categorical (character, factor, and the like). Unlike other programming languages, R tends to be forgiving about the subtle differences within those larger classifications. See chapter (ref needed) for help with the other 5% of cases.
+
+This is illustrated by the simplest plotting function in the `tidyverse` family, `qplot()`, short for quick plot, which automatically decides whether to produce a bar chart (categorical data) or histogram (quantitative data).
+
+```{r}
+qplot(mpg$trans)
+qplot(mpg$cty)
+```
+
+Hey, look, you're already producing decent-looking graphics with R! We'll built on this capability in the very next chapter.
+
+## Saving your work
+
+As your skill improve and you start working on larger and more complicated data tasks in R, you'll quickly outgrow the console as your primary workspace. By writing and saving your code as a file, you'll be able to reproduce, edit, and share your work with others, even if years elapse between sessions. 
+
+In the upper-left corner of your RStudio window, you'll see an icon with a green plus atop a blank sheet of paper. Click this and select "R Script." This will open a blank text file in which you can do just this.
+
+(insert pic of simple script)
+
+When you're editing an R script, hitting 'enter' will begin a new line of code rather than executing the command you've just typed. This is by design. To actually run a line of code, instead hit command-enter (Mac) or control-enter (PC). If you additionally hold down shift while doing this, the entire script will run. 
+
+You can save your R-script by clicking the disk icon or using the hotkey command-S (Mac) or control-S (PC), and open them from the file menu. In this way, RStudio is just like any other productivity software.
+
+## Getting help
+
+Getting stuck is an essential part of the learning process. Sooner or later (and probably sooner), your code will throw an error message you don't understand or the task you're tackling will require tools that you haven't even heard of yet. 
+
+
+
+

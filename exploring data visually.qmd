@@ -1,0 +1,43 @@
+# Exploring data visually
+
+There is no better way of letting your data tell its story than through data visualization. This is also an important step in understanding the relationships between variables and developing research questions.
+
+## The grammar of graphics
+
+The world of data visualistion has been revolutionized with the introduction of ggplot2 - an R package that leans on a new of thinking about graphics. The starting point is to understand the "gramer of graphics" - these are the various parameters that need to be included in your code that will translate into meaningful visual characteristics in your plot. Data: While ggplot has a "data" argument that allows you to define what data will be used to generate your plot, you can also feed the data directly into ggplot using pipe operators.
+
+Mapping aesthetics: To tell your data story, you need to tell ggplot which variables are going to mapped against which visual aesthetics that include the x and y axis', color, size, shape etc.
+
+## Your first plots
+
+-   basic histogram
+
+-   setting parameters like binwidth and fill
+
+-   switching geoms
+
+-   adding simple labels
+
+6 pages
+
+## Your first bar charts (categorical data)
+
+Although R technically differentiates between character vectors (strings) and factor variables (categorical data), the latter is de-emphasized in the tidyverse. You'll want to understand the differences eventually, but for now you can just treat every string you see as categorical. ggplot will make beautiful bar charts with either.
+
+2 pages
+
+## Additional aesthetics: scatterplots
+
+-   Simple scatterplot
+
+-   Adding a group color aesthetic
+
+-   Accessible use of color (brief)
+
+-   Other aesthetics (size, shape, etc)
+
+6 pages
+
+## Faceting
+
+3 pages

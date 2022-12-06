@@ -1,0 +1,29 @@
+# Cleaning data
+
+Once you load your data, you will quickly realize how messy it is. From missing data to strange variable types and columns full of unwanted characters; there are so many things that can be wrong about your data. This chapter will address some common cases that require data cleaning
+
+## Principles of tidy data
+
+2 page
+
+## Pivoting
+
+5 pages
+
+## Splitting and combining columns
+
+2 pages
+
+## Recoding/replacing data
+
+How much string manipulation do we really want here? I suspect regex belongs in the technical section.
+
+3 pages
+
+## Dealing with missing values
+
+2 pages
+
+## Modifying variable types
+
+2 pages
