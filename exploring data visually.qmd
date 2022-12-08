@@ -4,17 +4,61 @@ There is no better way of letting your data tell its story than through data vis
 
 ## The grammar of graphics
 
-The world of data visualistion has been revolutionized with the introduction of ggplot2 - an R package that leans on a new of thinking about graphics. The starting point is to understand the "gramer of graphics" - these are the various parameters that need to be included in your code that will translate into meaningful visual characteristics in your plot.
+The world of data visualization has been revolutionized with the introduction of ggplot2 - an R package that leans on a new of thinking about graphics. The starting point is to understand the "grammar of graphics" - these are the various parameters that need to be included in your code that will translate into meaningful visual characteristics in your plot.
+
+The plot below visualizes the relationship between the weight of cars and their fuel efficiency as measure my miles per gallon (mpg).
+
+In this plot, we've instructed R to reference a define set of data. In this case, data = mtcars. Next we've been clear that one of the variables is mapped against the x axis and another against the y axis. In this case, weight and mpg respectively. And finally we've defined the geometry that must be displayed. In this case we've produced a dot or "point" for each car at a point on the canvas commensurate with the weight and mpg of that car. These three parameters (the data, the mapping of aesthetics and the geometry) form the building blocks for creating beautiful graphics that will be limited only by your imagination.
+
+```{r}
+library(ggplot2)
+
+ggplot(data = mtcars, 
+       mapping = aes(x = wt, y = mpg)) +
+  geom_point()
+```
+
+Let's take a closer look at the three principle components of grammar of graphics.
 
 ### **Data:** 
 
-While ggplot has a "data" argument that allows you to define what data will be used to generate your plot, you can also feed the data directly into ggplot using pipe operators.
+While ggplot has a "data" argument that allows you to define what data will be used to generate your plot, you can also feed the data directly into ggplot using pipe operators (but more about that later).
 
 ### Mapping aesthetics: 
 
-To tell your data story, you need to tell ggplot which variables are going to mapped against which visual aesthetics that include the x and y axis', color, size, shape etc.
+To tell your data story, you need to specify how variables within the data are mapped to aesthetic features of your plot. The most obvious examples are the x and y axis. You can also map variables to colors, shapes and sizes and other aesthetic qualities as we'll demonstrate in examples below.
 
 ### Geometry
+
+By defining the geometry you tell R what kind of plot to create (a boxplot, a histogram, a line graph etc.). The beauty of ggplot is that you can create layers of geometry, each with its own aesthetic mapping. Its this feature that sets ggplot apart.
+
+The next example illustrates how you can very quickly add extra dimensions to your plot and start to tell a story with your data. We'll built it up one concept at a time.
+
+Firstly, let's take the data msleep, pipe it into ggplot and plot body weight against length of sleep cycles.
+
+```{r}
+msleep %>% 
+ggplot(aes(bodywt, sleep_cycle))+
+  geom_point()
+```
+
+At this point its a pretty useless plot. Let's make some improvements. Firstly we'll filter the data to include only mammals that are less than 4kg in weight. We'll also dissagregate the data by their dietary preferences using color and map the length of rem sleep to the size of each point. Finally, we'll add a "minimal theme" and define the title, x and y labels. Let's take a look at that.
+
+Note, you don't need to include the word "mapping" in the syntax of the code; neither do you need to include the "x" and "y" in the aes() function. Ggplot will always assume that the first and second arguments will be the x and y axis' respectively. I've included them here so that you can get used to the layout of gpplot code. Hereafter, I'll leave the out.
+
+```{r}
+msleep %>% 
+  filter(bodywt < 4) %>% 
+ggplot(mapping = aes(x = bodywt, 
+                     y = sleep_cycle, 
+                     colour = vore, 
+                     size = sleep_rem))+
+  geom_point()+
+  theme_bw()+
+  labs(title = "Sleep cylcle length by body weight",
+       x = "Body Weight", 
+       y = "Sleep cycle length")
+```
 
 ## Your first plots
 
