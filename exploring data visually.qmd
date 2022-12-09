@@ -43,15 +43,57 @@ ggplot(data = mpg,
        y = "Mile per gallon on the highway")
 ```
 
-Okay! This is starting to get interesting. Let's keep going. In the plot above, we mapped color to the class of car. Now I'm interested in creating an additional layer that overlays a smoothed linear model to indicate the overall relationship between these two variables.
+Okay! This is starting to get interesting. Let's keep going. As mentioned earlier, the dataset being used can be piped into ggplot instead of being defined as an argument inside the function. This means that we can manipulate the data before we start plotting. This is best understood by looking at an example.
+
+Let's imagine that we're only interested in SUVs and midsize cars. We could filter the dataset and then pipe it into ggplot. I'm also going to introduce you to the idea of "themes" in this chunk of code.
 
 ```{r}
-ggplot(data = mpg,
-       mapping = aes(x = displ, 
-                     y = hwy))+
-  geom_point(aes(color = class))+
+mpg %>% 
+  filter(class == "suv" |
+         class == "midsize") %>% 
+ggplot(mapping = aes(x = displ, 
+                     y = hwy,
+                     colour = class))+
+  geom_point()+
+  labs(title = "Highway efficency by engine size",
+       x = "Engine size in litres", 
+       y = "Mile per gallon on the highway")+
+  theme_bw()
+```
+
+Our plot is beginning to look pretty good now, wouldn't you agree? We're not done. Let's overlay a smoothed linear model on top of our scatter plot to show the overall relationship between fuel efficiency and engine size in midsize and SUVs respectively. At the same time, I'm going to make the size of the dots a little bigger and a little more transparent but using the "size" and "alpha" arguments in the geom_point() function.
+
+```{r}
+mpg %>% 
+  filter(class == "suv" |
+         class == "midsize") %>% 
+ggplot(mapping = aes(x = displ, 
+                     y = hwy,
+                     colour = class))+
+  geom_point(size = 2,
+             alpha = 0.2)+
   geom_smooth()+
   labs(title = "Highway efficency by engine size",
        x = "Engine size in litres", 
-       y = "Mile per gallon on the highway")
+       y = "Mile per gallon on the highway")+
+  theme_bw()
+```
+
+That's a lovely plot that includes two classes of car. If we wanted to include all of the classes, the plot would be extremely busy and impossible to interpret. An alternative would be to use the facet_wrap() function to separate out the classes of car into facets. In this example, let's include four classes of car.
+
+You'll also notice that in this code I leave out the word "mapping". When we define the arguments of the aesthetic, ggplot knows that we're mapping and we don't need to state it explicitly. Similarly, the first two arguments are assumed to be the x and y axis' and so they can be listed without stating "x =" and "y =".
+
+```{r}
+mpg %>% 
+  filter(class %in% c("suv", "subcompact", "compact", "pickup")) %>% 
+ggplot(aes(displ, hwy))+
+  geom_point(color = "orange",
+             size = 1,
+             alpha = 0.5)+
+  geom_smooth()+
+  facet_wrap(~class)+
+  labs(title = "Highway efficency by engine size",
+       x = "Engine size in litres", 
+       y = "Mile per gallon on the highway")+
+  theme_bw()
 ```
