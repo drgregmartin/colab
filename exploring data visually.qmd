@@ -6,15 +6,13 @@ There is no better way of letting your data tell its story than through data vis
 
 The world of data visualization has been revolutionized with the introduction of ggplot2 - an R package that leans on a new of thinking about graphics. The starting point is to understand the "grammar of graphics" - these are the various parameters that need to be included in your code that will translate into meaningful visual characteristics in your plot.
 
-The plot below visualizes the relationship between the weight of cars and their fuel efficiency as measure my miles per gallon (mpg).
+The best way to learn and understand the grammar of graphics is to look at an example that we'll build up, layer upon layer.
 
-In this plot, we've instructed R to reference a define set of data. In this case, data = mtcars. Next we've been clear that one of the variables is mapped against the x axis and another against the y axis. In this case, weight and mpg respectively. And finally we've defined the geometry that must be displayed. In this case we've produced a dot or "point" for each car at a point on the canvas commensurate with the weight and mpg of that car. These three parameters (the data, the mapping of aesthetics and the geometry) form the building blocks for creating beautiful graphics that will be limited only by your imagination.
+We're going to take a look at the "mpg" dataset that contains information about fuel efficiency for a number cars. We'll start by visualizing the relationship between "hwy" (highway miles per gallon) and "displ" (engine displacement - or size of the engine). To plot this relationship we need to define a few things: 1) what data is being used, 2) how the two variables are mapped against the x and y axis' of our plot and 3) what kind of geometry should ggplot use to represent the data (a bar chart, scatter plot, line graph etc.). Let's create the plot and then take a closer look at the code:
 
 ```{r}
-library(ggplot2)
-
-ggplot(data = mtcars, 
-       mapping = aes(x = wt, y = mpg)) +
+ggplot(data = mpg,
+       mapping = aes(x = displ, y = hwy))+
   geom_point()
 ```
 
@@ -32,64 +30,28 @@ To tell your data story, you need to specify how variables within the data are m
 
 By defining the geometry you tell R what kind of plot to create (a boxplot, a histogram, a line graph etc.). The beauty of ggplot is that you can create layers of geometry, each with its own aesthetic mapping. Its this feature that sets ggplot apart.
 
-The next example illustrates how you can very quickly add extra dimensions to your plot and start to tell a story with your data. We'll built it up one concept at a time.
-
-Firstly, let's take the data msleep, pipe it into ggplot and plot body weight against length of sleep cycles.
+Let's revisit our plot and distinguish between the different class of car. At the same time, I'm going to add a title and label the x and y axis' to make the plot look a little more professional.
 
 ```{r}
-msleep %>% 
-ggplot(aes(bodywt, sleep_cycle))+
-  geom_point()
-```
-
-At this point its a pretty useless plot. Let's make some improvements. Firstly we'll filter the data to include only mammals that are less than 4kg in weight. We'll also dissagregate the data by their dietary preferences using color and map the length of rem sleep to the size of each point. Finally, we'll add a "minimal theme" and define the title, x and y labels. Let's take a look at that.
-
-Note, you don't need to include the word "mapping" in the syntax of the code; neither do you need to include the "x" and "y" in the aes() function. Ggplot will always assume that the first and second arguments will be the x and y axis' respectively. I've included them here so that you can get used to the layout of gpplot code. Hereafter, I'll leave the out.
-
-```{r}
-msleep %>% 
-  filter(bodywt < 4) %>% 
-ggplot(mapping = aes(x = bodywt, 
-                     y = sleep_cycle, 
-                     colour = vore, 
-                     size = sleep_rem))+
+ggplot(data = mpg,
+       mapping = aes(x = displ, 
+                     y = hwy,
+                     colour = class))+
   geom_point()+
-  theme_bw()+
-  labs(title = "Sleep cylcle length by body weight",
-       x = "Body Weight", 
-       y = "Sleep cycle length")
+  labs(title = "Highway efficency by engine size",
+       x = "Engine size in litres", 
+       y = "Mile per gallon on the highway")
 ```
 
-## Your first plots
+Okay! This is starting to get interesting. Let's keep going. In the plot above, we mapped color to the class of car. Now I'm interested in creating an additional layer that overlays a smoothed linear model to indicate the overall relationship between these two variables.
 
--   basic histogram
-
--   setting parameters like binwidth and fill
-
--   switching geoms
-
--   adding simple labels
-
-6 pages
-
-## Your first bar charts (categorical data)
-
-Although R technically differentiates between character vectors (strings) and factor variables (categorical data), the latter is de-emphasized in the tidyverse. You'll want to understand the differences eventually, but for now you can just treat every string you see as categorical. ggplot will make beautiful bar charts with either.
-
-2 pages
-
-## Additional aesthetics: scatterplots
-
--   Simple scatterplot
-
--   Adding a group color aesthetic
-
--   Accessible use of color (brief)
-
--   Other aesthetics (size, shape, etc)
-
-6 pages
-
-## Faceting
-
-3 pages
+```{r}
+ggplot(data = mpg,
+       mapping = aes(x = displ, 
+                     y = hwy))+
+  geom_point(aes(color = class))+
+  geom_smooth()+
+  labs(title = "Highway efficency by engine size",
+       x = "Engine size in litres", 
+       y = "Mile per gallon on the highway")
+```
