@@ -1,16 +1,23 @@
 # Exploring data visually
 
-There is no better way of letting your data tell its story than through data visualization. This is also an important step in understanding the relationships between variables and developing research questions.
+There is no better way of letting your data tell its story than through data visualization. This is also an important step in understanding the relationships between variables and developing research questions. We'd put this introduction to data visualization early on in the book because we believe that you'll find being able to "see" what you are able to do with just a few lines of code, you'll be motivated to continue with your journey to learn R. The point of this chapter is to get you excited about R. We'll do some more advanced data visualization later on in the book once you've developed some data wrangling skills.
 
 ## The grammar of graphics
 
-The world of data visualization has been revolutionized with the introduction of ggplot2 - an R package that leans on a new of thinking about graphics. The starting point is to understand the "grammar of graphics" - these are the various parameters that need to be included in your code that will translate into meaningful visual characteristics in your plot.
+The world of data visualization has been revolutionized with the introduction of ggplot2 - an R package that leans on a new of thinking about graphics. The starting point is to understand the "grammar of graphics" - these are the various parameters that need to be included in your code that will translate into meaningful visual characteristics in your plot. The power of this new way of thinking is that it allows you to build a plot, layer upon layer, combining geometry and aesthetics like an artist working on a canvas.
 
-The best way to learn and understand the grammar of graphics is to look at an example that we'll build up, layer upon layer.
+The best way to learn and understand the grammar of graphics is to look at an example. We're going to take a look at the "mpg" dataset that contains information about fuel efficiency for a number cars. We'll start by visualizing the relationship between two variables, namely "hwy" (highway miles per gallon) and "displ" (engine displacement - or size of the engine). To plot this relationship we need to define a few things:
 
-We're going to take a look at the "mpg" dataset that contains information about fuel efficiency for a number cars. We'll start by visualizing the relationship between "hwy" (highway miles per gallon) and "displ" (engine displacement - or size of the engine). To plot this relationship we need to define a few things: 1) what data is being used, 2) how the two variables are mapped against the x and y axis' of our plot and 3) what kind of geometry should ggplot use to represent the data (a bar chart, scatter plot, line graph etc.). Let's create the plot and then take a closer look at the code:
+1.  what data is being used,
+
+2.  how the two variables are mapped against the x and y axis' of our plot and
+
+3.  what kind of geometry should ggplot use to represent the data (a bar chart, scatter plot, line graph etc.).
+
+Let's create the plot and then take a closer look at the code:
 
 ```{r}
+library(tidyverse)
 ggplot(data = mpg,
        mapping = aes(x = displ, y = hwy))+
   geom_point()
@@ -18,11 +25,11 @@ ggplot(data = mpg,
 
 Let's take a closer look at the three principle components of grammar of graphics.
 
-### **Data:** 
+### **Data:**
 
 While ggplot has a "data" argument that allows you to define what data will be used to generate your plot, you can also feed the data directly into ggplot using pipe operators (but more about that later).
 
-### Mapping aesthetics: 
+### Mapping aesthetics:
 
 To tell your data story, you need to specify how variables within the data are mapped to aesthetic features of your plot. The most obvious examples are the x and y axis. You can also map variables to colors, shapes and sizes and other aesthetic qualities as we'll demonstrate in examples below.
 
@@ -30,48 +37,13 @@ To tell your data story, you need to specify how variables within the data are m
 
 By defining the geometry you tell R what kind of plot to create (a boxplot, a histogram, a line graph etc.). The beauty of ggplot is that you can create layers of geometry, each with its own aesthetic mapping. Its this feature that sets ggplot apart.
 
-Let's revisit our plot and distinguish between the different class of car. At the same time, I'm going to add a title and label the x and y axis' to make the plot look a little more professional.
+Its this feature of laying one geometry over another that we want to demonstrate early on in your journey. By adding one simple line of code we can superimpose a smoothed linear model with standard errors to demonstrate the relationship between these two variables.
 
 ```{r}
 ggplot(data = mpg,
        mapping = aes(x = displ, 
-                     y = hwy,
-                     colour = class))+
+                     y = hwy))+
   geom_point()+
-  labs(title = "Highway efficency by engine size",
-       x = "Engine size in litres", 
-       y = "Mile per gallon on the highway")
-```
-
-Okay! This is starting to get interesting. Let's keep going. As mentioned earlier, the dataset being used can be piped into ggplot instead of being defined as an argument inside the function. This means that we can manipulate the data before we start plotting. This is best understood by looking at an example.
-
-Let's imagine that we're only interested in SUVs and midsize cars. We could filter the dataset and then pipe it into ggplot. I'm also going to introduce you to the idea of "themes" in this chunk of code.
-
-```{r}
-mpg %>% 
-  filter(class == "suv" |
-         class == "midsize") %>% 
-ggplot(mapping = aes(x = displ, 
-                     y = hwy,
-                     colour = class))+
-  geom_point()+
-  labs(title = "Highway efficency by engine size",
-       x = "Engine size in litres", 
-       y = "Mile per gallon on the highway")+
-  theme_bw()
-```
-
-Our plot is beginning to look pretty good now, wouldn't you agree? We're not done. Let's overlay a smoothed linear model on top of our scatter plot to show the overall relationship between fuel efficiency and engine size in midsize and SUVs respectively. At the same time, I'm going to make the size of the dots a little bigger and a little more transparent but using the "size" and "alpha" arguments in the geom_point() function.
-
-```{r}
-mpg %>% 
-  filter(class == "suv" |
-         class == "midsize") %>% 
-ggplot(mapping = aes(x = displ, 
-                     y = hwy,
-                     colour = class))+
-  geom_point(size = 2,
-             alpha = 0.2)+
   geom_smooth()+
   labs(title = "Highway efficency by engine size",
        x = "Engine size in litres", 
@@ -79,21 +51,24 @@ ggplot(mapping = aes(x = displ,
   theme_bw()
 ```
 
-That's a lovely plot that includes two classes of car. If we wanted to include all of the classes, the plot would be extremely busy and impossible to interpret. An alternative would be to use the facet_wrap() function to separate out the classes of car into facets. In this example, let's include four classes of car.
+Each time we add a '+' at the end of a line, we're telling ggplot that we're going to add another layer or add information about how the plot should look. The 'labs' function above is for labels and the theme_bw is one of the many built in themes that you can easily add to a plot to clean it up.
 
-You'll also notice that in this code I leave out the word "mapping". When we define the arguments of the aesthetic, ggplot knows that we're mapping and we don't need to state it explicitly. Similarly, the first two arguments are assumed to be the x and y axis' and so they can be listed without stating "x =" and "y =".
+Now let's add a little color to the plot and look at the same data but distinguish between cars of different "drives" (four wheel drive, front wheel drive, rear wheel drive etc.). To ensure that the plot doesn't get too messy, we're going to remove the standard error shading from the smoothed linear models.
 
 ```{r}
 mpg %>% 
-  filter(class %in% c("suv", "subcompact", "compact", "pickup")) %>% 
-ggplot(aes(displ, hwy))+
-  geom_point(color = "orange",
-             size = 1,
-             alpha = 0.5)+
-  geom_smooth()+
-  facet_wrap(~class)+
+ggplot(mapping = aes(x = displ, 
+                     y = hwy,
+                     colour = drv))+
+  geom_point()+
+  geom_smooth(se = FALSE)+
   labs(title = "Highway efficency by engine size",
        x = "Engine size in litres", 
-       y = "Mile per gallon on the highway")+
+       y = "Mile per gallon on the highway",
+       color = "Drive")+
   theme_bw()
+```
+
+```{r}
+
 ```
