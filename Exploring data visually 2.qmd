@@ -99,5 +99,17 @@ Well, fortunately, if you're using the tidyverse packages, then there are some v
 Consider the "Starwars" dataset (another "built it" dataset that you have access to). Before we select the variables that we want to look at, let's look at the dataset itself using the view() function
 
 ```{r}
-starwars
+view(starwars)
+```
+
+We can extract the names of the 14 variables using the names() function.
+
+```{r}
+names(starwars)
+```
+
+Let's imagine that we only want to work with the starwars character's names, height and mass.
+
+```{r}
+select(starwars, name, height, mass)
 ```
