@@ -1,4 +1,10 @@
-# Exploring data visually
+---
+output: html_document
+editor_options: 
+  chunk_output_type: inline
+---
+
+# I have resaved this chapater as exploring data visually 2
 
 There is no better way of letting your data tell its story than through data visualization. This is also an important step in understanding the relationships between variables and developing research questions. We'd put this introduction to data visualization early on in the book because we believe that you'll find being able to "see" what you are able to do with just a few lines of code, you'll be motivated to continue with your journey to learn R. The point of this chapter is to get you excited about R. We'll do some more advanced data visualization later on in the book once you've developed some data wrangling skills.
 
@@ -67,8 +73,4 @@ ggplot(mapping = aes(x = displ,
        y = "Mile per gallon on the highway",
        color = "Drive")+
   theme_bw()
-```
-
-```{r}
-
 ```

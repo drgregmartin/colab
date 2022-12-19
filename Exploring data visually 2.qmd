@@ -1,0 +1,103 @@
+---
+output: html_document
+editor_options: 
+  chunk_output_type: inline
+---
+
+# Exploring data visually
+
+There is no better way of letting your data tell its story than through data visualization. This is also an important step in understanding the relationships between variables and developing research questions. We'd put this introduction to data visualization early on in the book because we believe that you'll find being able to "see" what you are able to do with just a few lines of code, you'll be motivated to continue with your journey to learn R. The point of this chapter is to get you excited about R. We'll do some more advanced data visualization later on in the book once you've developed some data wrangling skills.
+
+## The grammar of graphics
+
+The world of data visualization has been revolutionized with the introduction of ggplot2 - an R package that leans on a new of thinking about graphics. The starting point is to understand the "grammar of graphics" - these are the various parameters that need to be included in your code that will translate into meaningful visual characteristics in your plot. The power of this new way of thinking is that it allows you to build a plot, layer upon layer, combining geometry and aesthetics like an artist working on a canvas.
+
+The best way to learn and understand the grammar of graphics is to look at an example. We're going to take a look at the "mpg" dataset that contains information about fuel efficiency for a number cars. We'll start by visualizing the relationship between two variables, namely "hwy" (highway miles per gallon) and "displ" (engine displacement - or size of the engine). To plot this relationship we need to define a few things:
+
+1.  what data is being used,
+
+2.  how the two variables are mapped against the x and y axis' of our plot and
+
+3.  what kind of geometry should ggplot use to represent the data (a bar chart, scatter plot, line graph etc.).
+
+Let's create the plot and then take a closer look at the code:
+
+```{r}
+library(tidyverse)
+ggplot(data = mpg,
+       mapping = aes(x = displ, y = hwy))+
+  geom_point()
+```
+
+The three principle elements that have to be defined in any plot are: 1) that data are being used, 2) which variables in that data will determine the aesthetics of the plot and 3) what sort of geometry should be applied.
+
+### **Data:**
+
+While ggplot has a "data" argument that allows you to define what data will be used to generate your plot, you can also feed the data directly into ggplot using pipe operators (but more about that later).
+
+### Mapping aesthetics:
+
+To tell your data story, you need to specify how variables within the data are mapped to aesthetic features of your plot. The most obvious examples are the x and y axis. You can also map variables to colors, shapes and sizes and other aesthetic qualities as we'll demonstrate in examples below.
+
+### Geometry
+
+By defining the geometry you tell R what kind of plot to create (a boxplot, a histogram, a line graph etc.). The beauty of ggplot is that you can create layers of geometry, each with its own aesthetic mapping. Its this feature that sets ggplot apart from other frameworks for data visualization. Once you get used to creating layers, you'll find a whole world of possibilities suddenly becomes available to you.
+
+### Adding a layer 
+
+So, without further ado, let's use one simple line of code to add a layer and superimpose a smoothed linear model with standard errors to demonstrate the relationship between these two variables.
+
+```{r}
+ggplot(data = mpg,
+       mapping = aes(x = displ, 
+                     y = hwy))+
+  geom_point()+
+  geom_smooth()
+```
+
+Each time we add a '+' at the end of a line, we're telling ggplot that we're going to add another layer or add information about how the plot should look.
+
+### Neatening things up
+
+Let's add some code to change the theme of the plot and add a title and axis' labels.
+
+```{r}
+ggplot(data = mpg,
+       mapping = aes(x = displ, 
+                     y = hwy))+
+  geom_point()+
+  geom_smooth()+
+  labs(title = "Highway efficency by engine size",
+       x = "Engine size in litres", 
+       y = "Mile per gallon on the highway")+
+  theme_bw()
+```
+
+The labs() function above is for labels and the theme_bw() is one of the many built in themes that you can easily add to a plot to clean it up.
+
+Now let's add a little color to the plot and look at the same data but distinguish between cars of different "drives" (four wheel drive, front wheel drive, rear wheel drive etc.).
+
+When we define mapping in the ggplot function itself, that mapping applies to all of the geometries that follow. If, however, you want to have a variable mapped against a particular aesthetic in just one geometry, then you can simple add that mapping as an argument in that geometry. Notice in the code below how I've mapped the "drives" to color only in the geom_point aesthetic. Also note that I've stopped using "data = \_\_" and "mapping = \_\_". It is taken for granted that the first argument is going to be data and that whenever you define aesthetics, it is for the purpose of mapping.
+
+```{r}
+ggplot(mpg, aes(x = displ, y = hwy))+
+  geom_point(aes(color = drv))+
+  geom_smooth()+
+  labs(title = "Highway efficency by engine size",
+       x = "Engine size in litres", 
+       y = "Mile per gallon on the highway",
+       color = "Drive")+
+  theme_bw()
+```
+
+# Selecting columns and filtering rows
+
+In neat and tidy data, each column is a variable and each row is an observation (so you'll find the terms columns and variables used interchangeably and the terms rows and observations used interchangeably). Once your data is imported, you'll often find that there are many more variables in your dataset than you want. You may want to "select" just the relevant variables.
+
+Well, fortunately, if you're using the tidyverse packages, then there are some very intuitive functions that become available. The first one that we're going to introduce you to is the "select" function. It does exactly what you think it does. You use it to select the variable you want to work with. Let's take a look.
+
+Consider the "Starwars" dataset (another "built it" dataset that you have access to). Before we select the variables that we want to look at, let's look at the dataset itself using the view() function
+
+```{r}
+starwars
+```
