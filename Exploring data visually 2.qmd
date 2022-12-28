@@ -90,9 +90,36 @@ ggplot(mpg, aes(x = displ, y = hwy))+
   theme_bw()
 ```
 
-# Selecting columns and filtering rows
+# Packages and the tidyverse
 
-In neat and tidy data, each column is a variable and each row is an observation (so you'll find the terms columns and variables used interchangeably and the terms rows and observations used interchangeably). Once your data is imported, you'll often find that there are many more variables in your dataset than you want. You may want to "select" just the relevant variables.
+\[insert text\]
+
+# Selecting columns, filtering rows and arranging your data
+
+In neat and tidy data, each column is a variable and each row is an observation. This may sound obvious but its an extremely important principle that will serve us well through the rest of this book.
+
+Once your data is imported, you'll often find that there are many more variables in your dataset than you want. You may want to "select" just the relevant variables. Similarly, there may be observations (or rows) that aren't relevant to your analysis. You may want to "filter" your observations to create a subset of data that meets certain criteria.
+
+Consider the following dataset:
+
+```{r echo = FALSE}
+Name = c("Paul", "Sam", "Andrew", "Sarah")
+Age = c(13, 14, 17, 65)
+Eye_colour = c("Blue", "Brown", "Blue", "Green")
+Occupation = c("Student", "Student", "Student", "Retired")
+df = data.frame(Name, Age, Eye_colour,  Occupation)
+df
+```
+
+If our analysis were to consider the eye colour of teenagers, the we would want to select the first three variables (Name, Age and Eye colour) and filter the data to include only those aged 11-19), to get something like this:
+
+```{r echo = FALSE}
+Name = c("Paul", "Sam", "Andrew")
+Age = c(13, 14, 17)
+Eye_colour = c("Blue", "Brown", "Blue")
+df = data.frame(Name, Age, Eye_colour)
+df
+```
 
 Well, fortunately, if you're using the tidyverse packages, then there are some very intuitive functions that become available. The first one that we're going to introduce you to is the "select" function. It does exactly what you think it does. You use it to select the variable you want to work with. Let's take a look.
 
@@ -108,8 +135,44 @@ We can extract the names of the 14 variables using the names() function.
 names(starwars)
 ```
 
-Let's imagine that we only want to work with the starwars character's names, height and mass.
+Let's imagine that we only want to work with the starwars character's names, height and mass. We start with the select() function and then type in the first argument which is the dataset that we're working with, followed by the names of the variables that you want to include.
 
 ```{r}
-select(starwars, name, height, mass)
+select(starwars,name, height, mass)
 ```
+
+Similarly, we could filter the data to include only those characters that are taller than 100 cm. We start with the filter() function and then type in the first argument which is the dataset that you're working with, followed by a phrase that describes your selection, like this:
+
+```{r}
+filter(starwars, height > 100)
+```
+
+You might also want your data to be ordered from lightest to heaviest. Again, there is an intuitive function that will do just that, in this case the arrange() function. Again, your first argument is the dataset followed by the variable that you want the data to be arranged by.
+
+```{r}
+arrange(starwars, mass)
+```
+
+# Changing a variable with mutate()
+
+You'll notice that in the starwars dataset, the height variable is in centimeters. You may want to change that to meters by dividing each value by 100. Easy. The mutate() function follows a similar format to the functions above.
+
+```{r}
+mutate(starwars, height = height/100)
+```
+
+# Piping it all together 
+
+In each of the examples above, we've applied one function to the data and produced an output. That output is a new data object with a new set of parameters and characteristics. What if we wanted to apply all of them? In other words, select, certain variables, filter the rows, arrange the data and mutate one of the variables, all at once.
+
+One of the most exciting and powerful features of the tidyverse packages is the ability to take the output of any function and pass it on (or pipe it) to the next function. To do this we use what is called "pipe operators" that look funny but have a very simple meaning. The classic pipe opporator looks like this "%\>%" (so it looks a little like a pipe) and it simple means, "and then". Let's take a look:
+
+```{r}
+starwars %>% 
+  select(name, height, mass) %>% 
+  filter(height > 100) %>% 
+  arrange(mass) %>% 
+  mutate(height = height/100)
+```
+
+You'll notice that we didn't need to define the data object as the first argument for each function. By starting with a dataset and piping it into a function, that function assumes the piped in data object is the first argument. Its output become the data argument for the next function and so on.
