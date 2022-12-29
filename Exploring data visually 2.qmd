@@ -22,8 +22,11 @@ The best way to learn and understand the grammar of graphics is to look at an ex
 
 Let's create the plot and then take a closer look at the code:
 
-```{r}
+```{r, echo = F}
 library(tidyverse)
+```
+
+```{r}
 ggplot(data = mpg,
        mapping = aes(x = displ, y = hwy))+
   geom_point()
@@ -31,7 +34,7 @@ ggplot(data = mpg,
 
 The three principle elements that have to be defined in any plot are: 1) that data are being used, 2) which variables in that data will determine the aesthetics of the plot and 3) what sort of geometry should be applied.
 
-### **Data:**
+### **Identifying data:**
 
 While ggplot has a "data" argument that allows you to define what data will be used to generate your plot, you can also feed the data directly into ggplot using pipe operators (but more about that later).
 
@@ -39,7 +42,7 @@ While ggplot has a "data" argument that allows you to define what data will be u
 
 To tell your data story, you need to specify how variables within the data are mapped to aesthetic features of your plot. The most obvious examples are the x and y axis. You can also map variables to colors, shapes and sizes and other aesthetic qualities as we'll demonstrate in examples below.
 
-### Geometry
+### Defining geometry
 
 By defining the geometry you tell R what kind of plot to create (a boxplot, a histogram, a line graph etc.). The beauty of ggplot is that you can create layers of geometry, each with its own aesthetic mapping. Its this feature that sets ggplot apart from other frameworks for data visualization. Once you get used to creating layers, you'll find a whole world of possibilities suddenly becomes available to you.
 
@@ -176,3 +179,39 @@ starwars %>%
 ```
 
 You'll notice that we didn't need to define the data object as the first argument for each function. By starting with a dataset and piping it into a function, that function assumes the piped in data object is the first argument. Its output become the data argument for the next function and so on.
+
+# Add a few more functions to your tidyverse vocabulary 
+
+### Rename and reorder variables 
+
+Now that you can see how easy it is to send your dataset through a pipeline of functions, let's add some more very simple and intuitive, yet useful functions to your vocabulary.
+
+We'll start with rename(). What does this function do? Well, you guessed it, you can use it to rename a variable. In the starwars dataset, you might want to select the variables, name, mass and height but rename "mass" and call it "weight". Here's how you do it:
+
+```{r}
+starwars %>% 
+  select(name, mass, height) %>% 
+  rename(weight = mass)
+  
+```
+
+Notice that the new name of the variable comes before the equals sign in the rename() function. Also notice that when I selected the variables that I was going to work with, I didn't list them in the order that they existed in the original dataset. Instead, I listed them in the order that I wanted them and that is exactly what I go. So with this code, we've renamed and reordered the variables.
+
+### Drop missing values 
+
+Missing values are usually designated NA in your data (NA stands for Not Available). Well go into a lot of detail in a later chapter as to different strategies that you can adopt when dealing with missing values. For now however, its useful to know that you can drop missing values in the tidyverse with the function drop_na(). Let's take a quick look at the hair_color variable in the starwars data set.
+
+```{r}
+starwars %>% 
+  select(name, hair_color)
+```
+
+Notice the NA values in the hair_color variable. We can remove them very easily with the drop_na() function.
+
+```{r}
+starwars %>% 
+  select(name, hair_color) %>% 
+  drop_na(hair_color)
+```
+
+Wha-la! Now more missing values in the hair_color variable. Note that when you remove missing values, you remove the entire row of data.

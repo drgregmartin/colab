@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.1.189">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>exploring-data-visually-2</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="Exploring data visually 2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="Exploring data visually 2_files/libs/quarto-html/quarto.js"></script>
+<script src="Exploring data visually 2_files/libs/quarto-html/popper.min.js"></script>
+<script src="Exploring data visually 2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="Exploring data visually 2_files/libs/quarto-html/anchor.min.js"></script>
+<link href="Exploring data visually 2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="Exploring data visually 2_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="Exploring data visually 2_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="Exploring data visually 2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="Exploring data visually 2_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+<section id="exploring-data-visually" class="level1">
+<h1>Exploring data visually</h1>
+<p>There is no better way of letting your data tell its story than through data visualization. This is also an important step in understanding the relationships between variables and developing research questions. We’d put this introduction to data visualization early on in the book because we believe that you’ll find being able to “see” what you are able to do with just a few lines of code, you’ll be motivated to continue with your journey to learn R. The point of this chapter is to get you excited about R. We’ll do some more advanced data visualization later on in the book once you’ve developed some data wrangling skills.</p>
+<section id="the-grammar-of-graphics" class="level2">
+<h2 class="anchored" data-anchor-id="the-grammar-of-graphics">The grammar of graphics</h2>
+<p>The world of data visualization has been revolutionized with the introduction of ggplot2 - an R package that leans on a new of thinking about graphics. The starting point is to understand the “grammar of graphics” - these are the various parameters that need to be included in your code that will translate into meaningful visual characteristics in your plot. The power of this new way of thinking is that it allows you to build a plot, layer upon layer, combining geometry and aesthetics like an artist working on a canvas.</p>
+<p>The best way to learn and understand the grammar of graphics is to look at an example. We’re going to take a look at the “mpg” dataset that contains information about fuel efficiency for a number cars. We’ll start by visualizing the relationship between two variables, namely “hwy” (highway miles per gallon) and “displ” (engine displacement - or size of the engine). To plot this relationship we need to define a few things:</p>
+<ol type="1">
+<li><p>what data is being used,</p></li>
+<li><p>how the two variables are mapped against the x and y axis’ of our plot and</p></li>
+<li><p>what kind of geometry should ggplot use to represent the data (a bar chart, scatter plot, line graph etc.).</p></li>
+</ol>
+<p>Let’s create the plot and then take a closer look at the code:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──
+✔ ggplot2 3.4.0      ✔ purrr   0.3.5 
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.2.1      ✔ stringr 1.4.1 
+✔ readr   2.1.3      ✔ forcats 0.5.2 
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy))<span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="Exploring-data-visually-2_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The three principle elements that have to be defined in any plot are: 1) that data are being used, 2) which variables in that data will determine the aesthetics of the plot and 3) what sort of geometry should be applied.</p>
+<section id="data" class="level3">
+<h3 class="anchored" data-anchor-id="data"><strong>Data:</strong></h3>
+<p>While ggplot has a “data” argument that allows you to define what data will be used to generate your plot, you can also feed the data directly into ggplot using pipe operators (but more about that later).</p>
+</section>
+<section id="mapping-aesthetics" class="level3">
+<h3 class="anchored" data-anchor-id="mapping-aesthetics">Mapping aesthetics:</h3>
+<p>To tell your data story, you need to specify how variables within the data are mapped to aesthetic features of your plot. The most obvious examples are the x and y axis. You can also map variables to colors, shapes and sizes and other aesthetic qualities as we’ll demonstrate in examples below.</p>
+</section>
+<section id="geometry" class="level3">
+<h3 class="anchored" data-anchor-id="geometry">Geometry</h3>
+<p>By defining the geometry you tell R what kind of plot to create (a boxplot, a histogram, a line graph etc.). The beauty of ggplot is that you can create layers of geometry, each with its own aesthetic mapping. Its this feature that sets ggplot apart from other frameworks for data visualization. Once you get used to creating layers, you’ll find a whole world of possibilities suddenly becomes available to you.</p>
+</section>
+<section id="adding-a-layer" class="level3">
+<h3 class="anchored" data-anchor-id="adding-a-layer">Adding a layer</h3>
+<p>So, without further ado, let’s use one simple line of code to add a layer and superimpose a smoothed linear model with standard errors to demonstrate the relationship between these two variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg,</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> displ, </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> hwy))<span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Exploring-data-visually-2_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Each time we add a ‘+’ at the end of a line, we’re telling ggplot that we’re going to add another layer or add information about how the plot should look.</p>
+</section>
+<section id="neatening-things-up" class="level3">
+<h3 class="anchored" data-anchor-id="neatening-things-up">Neatening things up</h3>
+<p>Let’s add some code to change the theme of the plot and add a title and axis’ labels.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> mpg,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> displ, </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">y =</span> hwy))<span class="sc">+</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()<span class="sc">+</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Highway efficency by engine size"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Engine size in litres"</span>, </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Mile per gallon on the highway"</span>)<span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Exploring-data-visually-2_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The labs() function above is for labels and the theme_bw() is one of the many built in themes that you can easily add to a plot to clean it up.</p>
+<p>Now let’s add a little color to the plot and look at the same data but distinguish between cars of different “drives” (four wheel drive, front wheel drive, rear wheel drive etc.).</p>
+<p>When we define mapping in the ggplot function itself, that mapping applies to all of the geometries that follow. If, however, you want to have a variable mapped against a particular aesthetic in just one geometry, then you can simple add that mapping as an argument in that geometry. Notice in the code below how I’ve mapped the “drives” to color only in the geom_point aesthetic. Also note that I’ve stopped using “data = __” and “mapping = __”. It is taken for granted that the first argument is going to be data and that whenever you define aesthetics, it is for the purpose of mapping.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy))<span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> drv))<span class="sc">+</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()<span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Highway efficency by engine size"</span>,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Engine size in litres"</span>, </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Mile per gallon on the highway"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">"Drive"</span>)<span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using method = 'loess' and formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output-display">
+<p><img src="Exploring-data-visually-2_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="packages-and-the-tidyverse" class="level1">
+<h1>Packages and the tidyverse</h1>
+<p>[insert text]</p>
+</section>
+<section id="selecting-columns-filtering-rows-and-arranging-your-data" class="level1">
+<h1>Selecting columns, filtering rows and arranging your data</h1>
+<p>In neat and tidy data, each column is a variable and each row is an observation. This may sound obvious but its an extremely important principle that will serve us well through the rest of this book.</p>
+<p>Once your data is imported, you’ll often find that there are many more variables in your dataset than you want. You may want to “select” just the relevant variables. Similarly, there may be observations (or rows) that aren’t relevant to your analysis. You may want to “filter” your observations to create a subset of data that meets certain criteria.</p>
+<p>Consider the following dataset:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>    Name Age Eye_colour Occupation
+1   Paul  13       Blue    Student
+2    Sam  14      Brown    Student
+3 Andrew  17       Blue    Student
+4  Sarah  65      Green    Retired</code></pre>
+</div>
+</div>
+<p>If our analysis were to consider the eye colour of teenagers, the we would want to select the first three variables (Name, Age and Eye colour) and filter the data to include only those aged 11-19), to get something like this:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>    Name Age Eye_colour
+1   Paul  13       Blue
+2    Sam  14      Brown
+3 Andrew  17       Blue</code></pre>
+</div>
+</div>
+<p>Well, fortunately, if you’re using the tidyverse packages, then there are some very intuitive functions that become available. The first one that we’re going to introduce you to is the “select” function. It does exactly what you think it does. You use it to select the variable you want to work with. Let’s take a look.</p>
+<p>Consider the “Starwars” dataset (another “built it” dataset that you have access to). Before we select the variables that we want to look at, let’s look at the dataset itself using the view() function</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(starwars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can extract the names of the 14 variables using the names() function.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(starwars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "name"       "height"     "mass"       "hair_color" "skin_color"
+ [6] "eye_color"  "birth_year" "sex"        "gender"     "homeworld" 
+[11] "species"    "films"      "vehicles"   "starships" </code></pre>
+</div>
+</div>
+<p>Let’s imagine that we only want to work with the starwars character’s names, height and mass. We start with the select() function and then type in the first argument which is the dataset that we’re working with, followed by the names of the variables that you want to include.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(starwars,name, height, mass)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 3
+   name               height  mass
+   &lt;chr&gt;               &lt;int&gt; &lt;dbl&gt;
+ 1 Luke Skywalker        172    77
+ 2 C-3PO                 167    75
+ 3 R2-D2                  96    32
+ 4 Darth Vader           202   136
+ 5 Leia Organa           150    49
+ 6 Owen Lars             178   120
+ 7 Beru Whitesun lars    165    75
+ 8 R5-D4                  97    32
+ 9 Biggs Darklighter     183    84
+10 Obi-Wan Kenobi        182    77
+# … with 77 more rows</code></pre>
+</div>
+</div>
+<p>Similarly, we could filter the data to include only those characters that are taller than 100 cm. We start with the filter() function and then type in the first argument which is the dataset that you’re working with, followed by a phrase that describes your selection, like this:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(starwars, height <span class="sc">&gt;</span> <span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 74 × 14
+   name        height  mass hair_…¹ skin_…² eye_c…³ birth…⁴ sex   gender homew…⁵
+   &lt;chr&gt;        &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  
+ 1 Luke Skywa…    172    77 blond   fair    blue       19   male  mascu… Tatooi…
+ 2 C-3PO          167    75 &lt;NA&gt;    gold    yellow    112   none  mascu… Tatooi…
+ 3 Darth Vader    202   136 none    white   yellow     41.9 male  mascu… Tatooi…
+ 4 Leia Organa    150    49 brown   light   brown      19   fema… femin… Aldera…
+ 5 Owen Lars      178   120 brown,… light   blue       52   male  mascu… Tatooi…
+ 6 Beru White…    165    75 brown   light   blue       47   fema… femin… Tatooi…
+ 7 Biggs Dark…    183    84 black   light   brown      24   male  mascu… Tatooi…
+ 8 Obi-Wan Ke…    182    77 auburn… fair    blue-g…    57   male  mascu… Stewjon
+ 9 Anakin Sky…    188    84 blond   fair    blue       41.9 male  mascu… Tatooi…
+10 Wilhuff Ta…    180    NA auburn… fair    blue       64   male  mascu… Eriadu 
+# … with 64 more rows, 4 more variables: species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;, and abbreviated variable names
+#   ¹​hair_color, ²​skin_color, ³​eye_color, ⁴​birth_year, ⁵​homeworld</code></pre>
+</div>
+</div>
+<p>You might also want your data to be ordered from lightest to heaviest. Again, there is an intuitive function that will do just that, in this case the arrange() function. Again, your first argument is the dataset followed by the variable that you want the data to be arranged by.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(starwars, mass)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 14
+   name        height  mass hair_…¹ skin_…² eye_c…³ birth…⁴ sex   gender homew…⁵
+   &lt;chr&gt;        &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  
+ 1 Ratts Tyer…     79    15 none    grey, … unknown      NA male  mascu… Aleen …
+ 2 Yoda            66    17 white   green   brown       896 male  mascu… &lt;NA&gt;   
+ 3 Wicket Sys…     88    20 brown   brown   brown         8 male  mascu… Endor  
+ 4 R2-D2           96    32 &lt;NA&gt;    white,… red          33 none  mascu… Naboo  
+ 5 R5-D4           97    32 &lt;NA&gt;    white,… red          NA none  mascu… Tatooi…
+ 6 Sebulba        112    40 none    grey, … orange       NA male  mascu… Malast…
+ 7 Dud Bolt        94    45 none    blue, … yellow       NA male  mascu… Vulpter
+ 8 Padmé Amid…    165    45 brown   light   brown        46 fema… femin… Naboo  
+ 9 Wat Tambor     193    48 none    green,… unknown      NA male  mascu… Skako  
+10 Sly Moore      178    48 none    pale    white        NA &lt;NA&gt;  &lt;NA&gt;   Umbara 
+# … with 77 more rows, 4 more variables: species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;, and abbreviated variable names
+#   ¹​hair_color, ²​skin_color, ³​eye_color, ⁴​birth_year, ⁵​homeworld</code></pre>
+</div>
+</div>
+</section>
+<section id="changing-a-variable-with-mutate" class="level1">
+<h1>Changing a variable with mutate()</h1>
+<p>You’ll notice that in the starwars dataset, the height variable is in centimeters. You may want to change that to meters by dividing each value by 100. Easy. The mutate() function follows a similar format to the functions above.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(starwars, <span class="at">height =</span> height<span class="sc">/</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 14
+   name        height  mass hair_…¹ skin_…² eye_c…³ birth…⁴ sex   gender homew…⁵
+   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  
+ 1 Luke Skywa…   1.72    77 blond   fair    blue       19   male  mascu… Tatooi…
+ 2 C-3PO         1.67    75 &lt;NA&gt;    gold    yellow    112   none  mascu… Tatooi…
+ 3 R2-D2         0.96    32 &lt;NA&gt;    white,… red        33   none  mascu… Naboo  
+ 4 Darth Vader   2.02   136 none    white   yellow     41.9 male  mascu… Tatooi…
+ 5 Leia Organa   1.5     49 brown   light   brown      19   fema… femin… Aldera…
+ 6 Owen Lars     1.78   120 brown,… light   blue       52   male  mascu… Tatooi…
+ 7 Beru White…   1.65    75 brown   light   blue       47   fema… femin… Tatooi…
+ 8 R5-D4         0.97    32 &lt;NA&gt;    white,… red        NA   none  mascu… Tatooi…
+ 9 Biggs Dark…   1.83    84 black   light   brown      24   male  mascu… Tatooi…
+10 Obi-Wan Ke…   1.82    77 auburn… fair    blue-g…    57   male  mascu… Stewjon
+# … with 77 more rows, 4 more variables: species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;, and abbreviated variable names
+#   ¹​hair_color, ²​skin_color, ³​eye_color, ⁴​birth_year, ⁵​homeworld</code></pre>
+</div>
+</div>
+</section>
+<section id="piping-it-all-together" class="level1">
+<h1>Piping it all together</h1>
+<p>In each of the examples above, we’ve applied one function to the data and produced an output. That output is a new data object with a new set of parameters and characteristics. What if we wanted to apply all of them? In other words, select, certain variables, filter the rows, arrange the data and mutate one of the variables, all at once.</p>
+<p>One of the most exciting and powerful features of the tidyverse packages is the ability to take the output of any function and pass it on (or pipe it) to the next function. To do this we use what is called “pipe operators” that look funny but have a very simple meaning. The classic pipe opporator looks like this “%&gt;%” (so it looks a little like a pipe) and it simple means, “and then”. Let’s take a look:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(name, height, mass) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(height <span class="sc">&gt;</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(mass) <span class="sc">%&gt;%</span> </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">height =</span> height<span class="sc">/</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 74 × 3
+   name            height  mass
+   &lt;chr&gt;            &lt;dbl&gt; &lt;dbl&gt;
+ 1 Sebulba           1.12  40  
+ 2 Padmé Amidala     1.65  45  
+ 3 Wat Tambor        1.93  48  
+ 4 Sly Moore         1.78  48  
+ 5 Leia Organa       1.5   49  
+ 6 Adi Gallia        1.84  50  
+ 7 Barriss Offee     1.66  50  
+ 8 Ayla Secura       1.78  55  
+ 9 Zam Wesell        1.68  55  
+10 Luminara Unduli   1.7   56.2
+# … with 64 more rows</code></pre>
+</div>
+</div>
+<p>You’ll notice that we didn’t need to define the data object as the first argument for each function. By starting with a dataset and piping it into a function, that function assumes the piped in data object is the first argument. Its output become the data argument for the next function and so on.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
