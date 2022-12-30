@@ -156,17 +156,9 @@ You might also want your data to be ordered from lightest to heaviest. Again, th
 arrange(starwars, mass)
 ```
 
-# Changing a variable with mutate()
-
-You'll notice that in the starwars dataset, the height variable is in centimeters. You may want to change that to meters by dividing each value by 100. Easy. The mutate() function follows a similar format to the functions above.
-
-```{r}
-mutate(starwars, height = height/100)
-```
-
 # Piping it all together 
 
-In each of the examples above, we've applied one function to the data and produced an output. That output is a new data object with a new set of parameters and characteristics. What if we wanted to apply all of them? In other words, select, certain variables, filter the rows, arrange the data and mutate one of the variables, all at once.
+In each of the examples above, we've applied one function to the data and produced an output. That output is a new data object with a new set of parameters and characteristics. What if we wanted to apply all of them? In other words, select, certain variables, filter the rows and arrange the data.
 
 One of the most exciting and powerful features of the tidyverse packages is the ability to take the output of any function and pass it on (or pipe it) to the next function. To do this we use what is called "pipe operators" that look funny but have a very simple meaning. The classic pipe opporator looks like this "%\>%" (so it looks a little like a pipe) and it simple means, "and then". Let's take a look:
 
@@ -174,8 +166,7 @@ One of the most exciting and powerful features of the tidyverse packages is the 
 starwars %>% 
   select(name, height, mass) %>% 
   filter(height > 100) %>% 
-  arrange(mass) %>% 
-  mutate(height = height/100)
+  arrange(mass) 
 ```
 
 You'll notice that we didn't need to define the data object as the first argument for each function. By starting with a dataset and piping it into a function, that function assumes the piped in data object is the first argument. Its output become the data argument for the next function and so on.
@@ -215,3 +206,98 @@ starwars %>%
 ```
 
 Wha-la! Now more missing values in the hair_color variable. Note that when you remove missing values, you remove the entire row of data.
+
+### Change or create a variable using mutate()
+
+You'll notice that in the starwars dataset, the height variable contains data in centimeters. If we wanted to change that data into meters we'd need to divide each value by 100. To do this we use the mutate() function. In the code below, you'll notice that, once again, we're using the pipe operator to bring the data object into the mutate function (and so we don't need to define the data argument). The first thing that we must define however is what it is that we're going to change or create. In this case we've said "height". That means that the existing "height" variable will be overwritten by the mutate function. You'll see from the next example that we could just as easily create a new variable at this point. In either event, after the equals sign you simple state what the variable of interest needs to be.
+
+```{r}
+starwars %>% 
+  select(name, height) %>% 
+  mutate(height = height/100)
+```
+
+Let's do the same thing but this time create a new variable called "height_in_m".
+
+```{r}
+starwars %>% 
+  select(name, height) %>% 
+  mutate(heigh_in_m = height/100)
+```
+
+### Advanced select
+
+The select function has a few interesting tricks up it's sleeve. For example, we can select variables that starts with with a certain string of characters.
+
+```{r}
+starwars %>% 
+  select(name, starts_with("s"))
+
+names(starwars)
+
+```
+
+We can also select variables that end with a certain string of characters.
+
+```{r}
+starwars %>% 
+  select(name, ends_with("color"))
+```
+
+You can select a range of data but referencing the number of the columns.
+
+```{r}
+starwars %>% 
+  select(1:3)
+```
+
+The select() function can also be used to rename a variable. Take a look at this example.
+
+```{r}
+starwars %>% 
+  select(character = name, height, mass)
+```
+
+There are many more features built into the select() function that you'll be able explore as you become a more advanced tidyverse operator.
+
+### Advanced filter 
+
+The filter function asks a question of each observation, "Does THIS observation meet a certain requirement". If the answer is "yes" then that row of data stays. If the answer is "no" then that row of data is removed. The requirement can be pretty sophisticated. Using Boolean logic (and, or, not etc.) you can extract out the data you want with a high level of precision. Let's look at some examples.
+
+```{r}
+starwars %>% 
+  select(name, hair_color, eye_color) %>% 
+  filter(hair_color == "black" & eye_color == "blue")
+
+names(starwars)
+```
+
+Note the use of the double equals ("==") in the code. This is used because we're not stating that one side the equation is equal to the other (that is normally the case with the equals sight) but rather asking if they are equal.
+
+By using the "&" operator, we're telling the filter function that both criteria must be met in order for a row to be included in out dataset. In this case, there were only two characters who met BOTH the criteria that their hair be black AND their eyes be blue.
+
+If however, we had used "\|" (which is used to mean OR), the observations will be included if they meet either of the criteria. Let's take a look.
+
+```{r}
+starwars %>% 
+  select(name, hair_color, eye_color) %>% 
+  filter(hair_color == "black" | eye_color == "blue")
+```
+
+In this case, each observation meets one or both of the stated criteria (and so many more rows are eligible to be included.
+
+You can ask R to give you the compliment (or opposite) of a particular argument using "!". Let's see if we can ask for all of the observations that do NOT have black hair.
+
+```{r}
+starwars %>% 
+  select(name, hair_color) %>% 
+  filter(hair_color != "black")
+```
+
+A very nifty feature of select is that you can ask for a number of values for a particular variable to be included. If we wanted, for example, to include all rows that include black hair OR brown hair OR blond hair, we'd use the %in% feature followed by a list.
+
+```{r}
+starwars %>% 
+  select(name, hair_color) %>% 
+  filter(hair_color %in% c("black", "brown", "blond"))
+```
