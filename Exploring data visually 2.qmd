@@ -97,9 +97,15 @@ ggplot(mpg, aes(x = displ, y = hwy))+
 
 \[insert text\]
 
-# Selecting columns, filtering rows and arranging your data
+# Working in the tidyverse 
 
-In neat and tidy data, each column is a variable and each row is an observation. This may sound obvious but its an extremely important principle that will serve us well through the rest of this book.
+The tidyverse is a collection of packages that work together to expand the vocabulary of the R programming language. Working with the tidyverse packages has become absolutely mainstream within the R programming community and is widely considered 'best practice'.
+
+In this section, we'll introduce you to some of the more important 'verbs' (or functions) that are used and to an exciting feature called the 'pipe operator' that let's you sting together a series of actions to be applied to a data object.
+
+### Selecting columns, filtering rows and arranging your data
+
+In neat and tidy data, each column is a variable and each row is an observation. This may sound obvious but its an extremely important principle that will serve us well through the rest of this book. Note that data doesn't always come to use a 'neat and tidy' - it usually takes a little data wrangling to get the data into shape.
 
 Once your data is imported, you'll often find that there are many more variables in your dataset than you want. You may want to "select" just the relevant variables. Similarly, there may be observations (or rows) that aren't relevant to your analysis. You may want to "filter" your observations to create a subset of data that meets certain criteria.
 
@@ -108,13 +114,13 @@ Consider the following dataset:
 ```{r echo = FALSE}
 Name = c("Paul", "Sam", "Andrew", "Sarah")
 Age = c(13, 14, 17, 65)
-Eye_colour = c("Blue", "Brown", "Blue", "Green")
+Eye_color = c("Blue", "Brown", "Blue", "Green")
 Occupation = c("Student", "Student", "Student", "Retired")
-df = data.frame(Name, Age, Eye_colour,  Occupation)
+df = data.frame(Name, Age, Eye_color,  Occupation)
 df
 ```
 
-If our analysis were to consider the eye colour of teenagers, the we would want to select the first three variables (Name, Age and Eye colour) and filter the data to include only those aged 11-19), to get something like this:
+If our analysis were to consider the eye color of teenagers, the we would want to select the first three variables (Name, Age and Eye color) and filter the data to include only those aged 11-19), to get something like this:
 
 ```{r echo = FALSE}
 Name = c("Paul", "Sam", "Andrew")
@@ -126,7 +132,7 @@ df
 
 Well, fortunately, if you're using the tidyverse packages, then there are some very intuitive functions that become available. The first one that we're going to introduce you to is the "select" function. It does exactly what you think it does. You use it to select the variable you want to work with. Let's take a look.
 
-Consider the "Starwars" dataset (another "built it" dataset that you have access to). Before we select the variables that we want to look at, let's look at the dataset itself using the view() function
+Consider the "satarwars" dataset (another "built it" dataset that you have access to). Before we select the variables that we want to look at, let's look at the dataset itself using the view() function
 
 ```{r}
 view(starwars)
@@ -300,4 +306,45 @@ A very nifty feature of select is that you can ask for a number of values for a 
 starwars %>% 
   select(name, hair_color) %>% 
   filter(hair_color %in% c("black", "brown", "blond"))
+```
+
+### Grouping and summarizing you data
+
+The group_by() and summarise() functions usually get used together. Let's consider three variables of the starwars dataset.
+
+```{r}
+starwars %>% 
+  select(name, sex, height) %>% 
+  filter(sex == "male" | 
+         sex == "female") %>% 
+  drop_na()
+
+```
+
+What we're interested in is the average height for males and females. To make that calculation, we'd need to put the data into two groups (male and female), in other words, group by the sex variable and we'd need to apply the "mean()" function to all of the height data in each group. Here is how to do just that.
+
+```{r}
+starwars %>% 
+  select(name, sex, height) %>% 
+  filter(sex == "male" | 
+         sex == "female") %>% 
+  drop_na() %>% 
+  group_by(sex) %>% 
+  summarise('Average height' = mean(height))
+
+
+```
+
+We can quite easily add additional summary values like max, min, median etc. For example...
+
+```{r}
+starwars %>% 
+  select(name, sex, height) %>% 
+  filter(sex == "male" | 
+         sex == "female") %>% 
+  drop_na() %>% 
+  group_by(sex) %>% 
+  summarise('Average height' = mean(height),
+            'Tallest character' = max(height),
+            'Shortest character' = min(height))
 ```
