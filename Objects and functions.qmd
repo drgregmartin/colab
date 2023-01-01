@@ -1,0 +1,43 @@
+---
+title: "Objects and functions"
+format: html
+editor: visual
+---
+
+## Functions applied to objects 
+
+In R, data objects are structures that store data that can then be acted on by a function. This is best understood with a simple example. Consider the a set of numbers that have been assigned to a variables called, "my_numbers".
+
+```{r}
+my_numbers <- c(3, 5, 8, 2)
+```
+
+We've created a vector (one of many types of data objects) that can be easily called by making reference to its designated name.
+
+```{r}
+my_numbers
+```
+
+If we wanted to calculate the sum of those numbers, we could simple apply the sum() function to that object as follows
+
+```{r}
+sum(my_numbers)
+```
+
+In R, there are several data objects that you will commonly use. These include:
+
+1.  Vectors: Vectors are the most basic data object in R. They can contain elements of different types, such as numeric, character, and logical.
+
+2.  Lists: Lists are similar to vectors, but they can contain elements of different types and can also contain other lists.
+
+3.  Matrices: Matrices are two-dimensional arrays of data. All elements in a matrix must be of the same type.
+
+4.  Arrays: Arrays are multi-dimensional versions of matrices.
+
+5.  Data frames: Data frames are tables of data where each column can contain elements of different types. They are similar to lists, but with a few important differences.
+
+6.  Factors: Factors are used to represent categorical data. They are used to store and manipulate categorical variables in statistical models.
+
+7.  Missing values: Missing values are represented in R as NA (not available). These values are used to represent missing or incomplete data.
+
+8.  Dates and times: R has several classes for representing dates and times, including POSIXct and POSIXlt. These classes allow you to store and manipulate dates and times in R.
