@@ -46,7 +46,7 @@ To tell your data story, you need to specify how variables within the data are m
 
 By defining the geometry you tell R what kind of plot to create (a boxplot, a histogram, a line graph etc.). The beauty of ggplot is that you can create layers of geometry, each with its own aesthetic mapping. Its this feature that sets ggplot apart from other frameworks for data visualization. Once you get used to creating layers, you'll find a whole world of possibilities suddenly becomes available to you.
 
-### Adding a layer 
+### Adding a layer
 
 So, without further ado, let's use one simple line of code to add a layer and superimpose a smoothed linear model with standard errors to demonstrate the relationship between these two variables.
 
@@ -97,7 +97,7 @@ ggplot(mpg, aes(x = displ, y = hwy))+
 
 \[insert text\]
 
-# Working in the tidyverse 
+# Working in the tidyverse
 
 The tidyverse is a collection of packages that work together to expand the vocabulary of the R programming language. Working with the tidyverse packages has become absolutely mainstream within the R programming community and is widely considered 'best practice'.
 
@@ -162,7 +162,7 @@ You might also want your data to be ordered from lightest to heaviest. Again, th
 arrange(starwars, mass)
 ```
 
-# Piping it all together 
+# Piping it all together
 
 In each of the examples above, we've applied one function to the data and produced an output. That output is a new data object with a new set of parameters and characteristics. What if we wanted to apply all of them? In other words, select, certain variables, filter the rows and arrange the data.
 
@@ -177,9 +177,9 @@ starwars %>%
 
 You'll notice that we didn't need to define the data object as the first argument for each function. By starting with a dataset and piping it into a function, that function assumes the piped in data object is the first argument. Its output become the data argument for the next function and so on.
 
-# Add a few more functions to your tidyverse vocabulary 
+# Add a few more functions to your tidyverse vocabulary
 
-### Rename and reorder variables 
+### Rename and reorder variables
 
 Now that you can see how easy it is to send your dataset through a pipeline of functions, let's add some more very simple and intuitive, yet useful functions to your vocabulary.
 
@@ -194,7 +194,7 @@ starwars %>%
 
 Notice that the new name of the variable comes before the equals sign in the rename() function. Also notice that when I selected the variables that I was going to work with, I didn't list them in the order that they existed in the original dataset. Instead, I listed them in the order that I wanted them and that is exactly what I go. So with this code, we've renamed and reordered the variables.
 
-### Drop missing values 
+### Drop missing values
 
 Missing values are usually designated NA in your data (NA stands for Not Available). Well go into a lot of detail in a later chapter as to different strategies that you can adopt when dealing with missing values. For now however, its useful to know that you can drop missing values in the tidyverse with the function drop_na(). Let's take a quick look at the hair_color variable in the starwars data set.
 
@@ -266,7 +266,7 @@ starwars %>%
 
 There are many more features built into the select() function that you'll be able explore as you become a more advanced tidyverse operator.
 
-### Advanced filter 
+### Advanced filter
 
 The filter function asks a question of each observation, "Does THIS observation meet a certain requirement". If the answer is "yes" then that row of data stays. If the answer is "no" then that row of data is removed. The requirement can be pretty sophisticated. Using Boolean logic (and, or, not etc.) you can extract out the data you want with a high level of precision. Let's look at some examples.
 
