@@ -5,7 +5,7 @@ editor: visual
 
 So, in R programming, a package is basically a bunch of extra functions, data, and documentation that can be used to extend the capabilities of base R. Packages are created by different people or groups and are really helpful because they allow you to share and distribute code and data with others.
 
-To use a package in R, you first have to install it. You can do this using the **`install.packages()`** function and passing in the name of the package as an argument. For example, if you want to install the **`dplyr`** package, you would run:
+To use a package in R, you **first** have to install it. You can do this using the **`install.packages()`** function and passing in the name of the package as an argument. For example, if you want to install the **`dplyr`** package, you would run:
 
 ```{r}
 install.packages("dplyr")
