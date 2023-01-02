@@ -1,0 +1,49 @@
+---
+title: "Importing data"
+editor: visual
+---
+
+The tidyverse packages provide a number of functions for importing data into R that are designed to be easy to use and consistent with the rest of the tidyverse. Some of the main functions for importing data in the tidyverse are:
+
+-   **`read_csv()`**: This function reads a file in comma-separated values (CSV) format and creates a tibble from the conten**t**s. It is part of the **readr** package.
+-   **read_tsv:** This function reads a file in tab-separated values (TSV) format and creates a tibble from the contents. It is part of the **readr** package.
+-   **`read_delim()`**: This function is similar to **`read_csv()`** and **`read_tsv()`**, but allows you to specify the delimiter character (e.g., comma, tab, pipe) used in the file. It is part of the **`readr`** package.
+-   **`read_excel()`**: This function reads an Excel file and creates a tibble from the contents. It is part of the **`readxl`** package.
+-   **`read_fwf()`**: This function reads a file in fixed-width format and creates a tibble from the contents. It is part of the **`readr`** package.
+
+To use these functions you need to install and load the appropriate package. By routinely using the **`tidyverse`** packages, you'll automatically have access to these import functions.
+
+When you import data, its a good idea to immediately assign as a data object in your environment, like this:
+
+```{r eval=FALSE}
+library(tidyverse)
+my_data <- read_csv("data.csv")
+```
+
+R will always look in what is called the "working directory" for the data. If you the data is is not in the working directory then the path to the data must be specified like this.
+
+```{r eval=FALSE}
+library(tidyverse)
+my_data <- read_tsv("/path/to/data.tsv")
+
+```
+
+Data can also be extracted straight from an internet site as follows:
+
+```{r eval=FALSE}
+library(readr)
+data <- read_csv("https://example.com/data.csv")
+
+```
+
+The import functions have a number of arguments that can be used to import only the subset of data that you want in a particular format. Let's take a look at the **`readxl`** package (and again, this is included in the **`tidyverse`** collection of packages) as we use it to import a hypothetical excel spreadsheet:
+
+```{r}
+library(readxl)
+my_data <- read_excel("data.xlsx", 
+                      sheet = "Sheet2",
+                      col_names = TRUE,
+                      range = "A1:N3")
+```
+
+In this example, the spreadsheet called `data.xlsx` will be imported. Only the second sheet however and from that sheet, only the data sitting in the range A1:N3 will be extracted. R will use the column names to create variable names. There are other arguments that can be applied but these illustrate the power of writing code to ensure that you get exactly what you want. )
