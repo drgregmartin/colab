@@ -4,7 +4,7 @@ format: html
 editor: visual
 ---
 
-## Functions applied to objects 
+## Functions applied to objects
 
 In R, data objects are structures that store data that can then be acted on by a function. This is best understood with a simple example. Consider the a set of numbers that have been assigned to a variables called, "my_numbers".
 
