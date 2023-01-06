@@ -5,11 +5,11 @@ editor: visual
 
 The tidyverse packages provide a number of functions for importing data into R that are designed to be easy to use and consistent with the rest of the tidyverse. Some of the main functions for importing data in the tidyverse are:
 
--   **`read_csv()`**: This function reads a file in comma-separated values (CSV) format and creates a tibble from the conten**t**s. It is part of the **readr** package.
--   **read_tsv:** This function reads a file in tab-separated values (TSV) format and creates a tibble from the contents. It is part of the **readr** package.
--   **`read_delim()`**: This function is similar to **`read_csv()`** and **`read_tsv()`**, but allows you to specify the delimiter character (e.g., comma, tab, pipe) used in the file. It is part of the **`readr`** package.
--   **`read_excel()`**: This function reads an Excel file and creates a tibble from the contents. It is part of the **`readxl`** package.
--   **`read_fwf()`**: This function reads a file in fixed-width format and creates a tibble from the contents. It is part of the **`readr`** package.
+-   **`read_csv`**: This function reads a file in comma-separated values (CSV) format and creates a tibble from the conten**t**s. It is part of the **readr** package.
+-   **`read_tsv`:** This function reads a file in tab-separated values (TSV) format and creates a tibble from the contents. It is part of the **readr** package.
+-   **`read_delim`**: This function is similar to **`read_csv`** and **`read_tsv`**, but allows you to specify the delimiter character (e.g., comma, tab, pipe) used in the file. It is part of the **`readr`** package.
+-   **`read_excel`**: This function reads an Excel file and creates a tibble from the contents. It is part of the **`readxl`** package.
+-   **`read_fwf`**: This function reads a file in fixed-width format and creates a tibble from the contents. It is part of the **`readr`** package.
 
 To use these functions you need to install and load the appropriate package. By routinely using the **`tidyverse`** packages, you'll automatically have access to these import functions.
 

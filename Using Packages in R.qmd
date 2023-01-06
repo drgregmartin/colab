@@ -3,49 +3,45 @@ title: "Welcome to the tidyverse: installing and using packages"
 editor: visual
 ---
 
-So, in R programming, a package is basically a bunch of extra functions, data, and documentation that can be used to extend the capabilities of base R. Packages are created by different people or groups and are really helpful because they allow you to share and distribute code and data with others.
+```{r, echo=FALSE}
+library(tidyverse)
+```
 
-To use a package in R, you **first** have to install it. You can do this using the **`install.packages()`** function and passing in the name of the package as an argument. For example, if you want to install the **`dplyr`** package, you would run:
+So, in R programming, a package is basically a bunch of extra functions, data, and documentation that can be used to extend the capabilities of base R. You can think of it as extending the vocabulary of R (giving you more functions to work with). Packages may also contain datasets that you can use to practice with.
+
+To use a package in R, you **first** have to install it. You can do this using the **`install.packages()`** function and passing in the name of the package as the argument. For example, if you want to install the **`dplyr`** package, you would run:
 
 ```{r}
 install.packages("dplyr")
 ```
 
-After you've installed a package, you can load it into your current R session using the **`library()`** function. This will make all the functions, data, and documentation in the package available for you to use. So, if you want to load the **`dplyr`** package, you would run:
+Once you've installed a package, you can load it into your current R session using the **`library()`** function. This will make all the functions, data, and documentation in the package available for you to use. So, if you want to load the **`dplyr`** package, you would run:
 
 ```{r}
 library(dplyr)
 ```
 
-You can also install and load a package in one step by using the **`require()`** function. This will install the package if it's not already installed, and then load it into your current session. For example:
+You can also install and load a package in one step by using the **`require()`** function. This will install the package if it's not already installed, and then load it into your current session. This is a useful function if you're writing code that will be run on someone elses machine on which the packages might not have been installed. For example:
 
 ```{r}
 require(dplyr)
 ```
 
-You can also install multiple packages at once by passing a vector of package names to the **`install.packages()`** function. Like this:
-
-```{r}
-install.packages(c("dplyr", "tidyr", "ggplot2"))
-```
-
 Once you've installed a package you can access any data that is included in that package and utilize the functions that come with the package. So in the case of the 'dplyr' page you would run:
 
 ```{r}
-dplyr::filter(data, condition)
+select(mpg, manufacturer, year, class)
 ```
 
 If there is any chance that the same text for a function in more than one package (leading to a potential conflict) then its a good idea to include the package name when calling the function like this:
 
 ```{r}
-dplyr::filter(data, condition)
+dplyr::filter(mpg, manufacturer, year, class)
 ```
-
-Just a heads up, R only loads the functions and data that you actually need for your current session, so you don't have to load all the packages you've installed every time you start a new R session. You can just selectively load the packages you need as you work.
 
 ### The tidyverse packages
 
-The tidyverse is a group of R packages that work together to make it easier to manipulate and visualize data. All the packages in the tidyverse have a similar syntax and are designed to be easy to learn and use.
+You are going to love the tidyverse. The tidyverse is a group of R packages that work together to make it easier to wrangle and visualize data. All the packages in the tidyverse have a similar syntax and are designed to be easy to use.
 
 Some of the main packages in the tidyverse include:
 
@@ -65,9 +61,9 @@ Some of the main packages in the tidyverse include:
 
 -   **`lubridate`**: for working with dates and times
 
-There are also other packages that are part of the tidyverse, but these are the core ones.
+There are other packages that are part of the tidyverse, but these are the core ones.
 
-To get the tidyverse, you can use the **`install.packages()`** and **`library()`** functions or the **`require()`** function to install and load the packages in one step. For example:
+To get the tidyverse package, simply run:
 
 ```{r}
 install.packages("tidyverse")

@@ -18,7 +18,7 @@ We've created a vector (one of many types of data objects) that can be easily ca
 my_numbers
 ```
 
-If we wanted to calculate the sum of those numbers, we could simple apply the sum() function to that object as follows
+If we wanted to calculate the sum of those numbers, we could simple apply the **`sum`** function to that object as follows:
 
 ```{r}
 sum(my_numbers)
@@ -26,18 +26,8 @@ sum(my_numbers)
 
 In R, there are several data objects that you will commonly use. These include:
 
-1.  Vectors: Vectors are the most basic data object in R. They can contain elements of different types, such as numeric, character, and logical.
-
-2.  Lists: Lists are similar to vectors, but they can contain elements of different types and can also contain other lists.
-
-3.  Matrices: Matrices are two-dimensional arrays of data. All elements in a matrix must be of the same type.
-
-4.  Arrays: Arrays are multi-dimensional versions of matrices.
-
-5.  Data frames: Data frames are tables of data where each column can contain elements of different types. They are similar to lists, but with a few important differences.
-
-6.  Factors: Factors are used to represent categorical data. They are used to store and manipulate categorical variables in statistical models.
-
-7.  Missing values: Missing values are represented in R as NA (not available). These values are used to represent missing or incomplete data.
-
-8.  Dates and times: R has several classes for representing dates and times, including POSIXct and POSIXlt. These classes allow you to store and manipulate dates and times in R.
+1.  **`Vectors`**: Vectors are the most basic data object in R. They can contain elements of the same types, such as numeric, character, and logical.
+2.  **`Data frames`**: Data frames are tables of data where each column can contain elements of different types.
+3.  **`Table`**:
+4.  **`Lists`**: Lists are similar to vectors, but they can contain elements of different types and can also contain other lists.
+5.  **`Matrices`**: Matrices are two-dimensional arrays of data. All elements in a matrix must be of the same type.

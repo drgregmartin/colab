@@ -8,11 +8,11 @@ editor_options:
 
 There is no better way of letting your data tell its story than through data visualization. This is also an important step in understanding the relationships between variables and developing research questions. We'd put this introduction to data visualization early on in the book because we believe that you'll find being able to "see" what you are able to do with just a few lines of code, you'll be motivated to continue with your journey to learn R. The point of this chapter is to get you excited about R. We'll do some more advanced data visualization later on in the book once you've developed some data wrangling skills.
 
-## The grammar of graphics
+### The grammar of graphics
 
-The world of data visualization has been revolutionized with the introduction of ggplot2 - an R package that leans on a new of thinking about graphics. The starting point is to understand the "grammar of graphics" - these are the various parameters that need to be included in your code that will translate into meaningful visual characteristics in your plot. The power of this new way of thinking is that it allows you to build a plot, layer upon layer, combining geometry and aesthetics like an artist working on a canvas.
+The world of data visualization has been revolutionized with the introduction of **`ggplot2`**, an R package that leans on a new of thinking about graphics. The starting point is to understand the "grammar of graphics" - these are the various parameters that need to be included in your code that will translate into meaningful visual characteristics in your plot. The power of this new way of thinking is that it allows you to build a plot, layer upon layer, combining geometry and aesthetics like an artist working on a canvas.
 
-The best way to learn and understand the grammar of graphics is to look at an example. We're going to take a look at the "mpg" dataset that contains information about fuel efficiency for a number cars. We'll start by visualizing the relationship between two variables, namely "hwy" (highway miles per gallon) and "displ" (engine displacement - or size of the engine). To plot this relationship we need to define a few things:
+The best way to learn and understand the grammar of graphics is to look at an example. We're going to take a look at the **`mpg`** dataset that contains information about fuel efficiency for a number cars. We'll start by visualizing the relationship between two variables, namely **`hwy`** (highway miles per gallon) and **`displ`** (engine displacement - or size of the engine). To plot this relationship we need to define a few things:
 
 1.  what data is being used,
 
@@ -32,13 +32,17 @@ ggplot(data = mpg,
   geom_point()
 ```
 
-The three principle elements that have to be defined in any plot are: 1) that data are being used, 2) which variables in that data will determine the aesthetics of the plot and 3) what sort of geometry should be applied.
+The three principle elements that have to be defined in any plot are:
+
+1.  the data that is being used,
+2.  the variables in that data will determine the aesthetics of the plot, and
+3.  the sort of geometry should be applied.
 
 ### **Identifying data:**
 
 While ggplot has a "data" argument that allows you to define what data will be used to generate your plot, you can also feed the data directly into ggplot using pipe operators (but more about that later).
 
-### Mapping aesthetics:
+### Mapping variables to aesthetics:
 
 To tell your data story, you need to specify how variables within the data are mapped to aesthetic features of your plot. The most obvious examples are the x and y axis. You can also map variables to colors, shapes and sizes and other aesthetic qualities as we'll demonstrate in examples below.
 
@@ -48,7 +52,7 @@ By defining the geometry you tell R what kind of plot to create (a boxplot, a hi
 
 ### Adding a layer
 
-So, without further ado, let's use one simple line of code to add a layer and superimpose a smoothed linear model with standard errors to demonstrate the relationship between these two variables.
+So, without further ado, let's use one simple line of code to add a layer and superimpose a smoothed linear model with standard errors to demonstrate the relationship between these two variables. To do this you would run this code:
 
 ```{r}
 ggplot(data = mpg,
@@ -58,7 +62,7 @@ ggplot(data = mpg,
   geom_smooth()
 ```
 
-Each time we add a '+' at the end of a line, we're telling ggplot that we're going to add another layer or add information about how the plot should look.
+Each time we add a **`+`** at the end of a line, we're telling ggplot that we're going to add another layer or add information about how the plot should look.
 
 ### Neatening things up
 
@@ -76,9 +80,9 @@ ggplot(data = mpg,
   theme_bw()
 ```
 
-The labs() function above is for labels and the theme_bw() is one of the many built in themes that you can easily add to a plot to clean it up.
+The **`labs`** function above is for labels and the **`theme_bw`** is one of the many built in themes that you can easily add to a plot to clean it up.
 
-Now let's add a little color to the plot and look at the same data but distinguish between cars of different "drives" (four wheel drive, front wheel drive, rear wheel drive etc.).
+Now let's add a little color to the plot and look at the same data but distinguish between cars of different **`drives`** (four wheel drive, front wheel drive, rear wheel drive etc.).
 
 When we define mapping in the ggplot function itself, that mapping applies to all of the geometries that follow. If, however, you want to have a variable mapped against a particular aesthetic in just one geometry, then you can simple add that mapping as an argument in that geometry. Notice in the code below how I've mapped the "drives" to color only in the geom_point aesthetic. Also note that I've stopped using "data = \_\_" and "mapping = \_\_". It is taken for granted that the first argument is going to be data and that whenever you define aesthetics, it is for the purpose of mapping.
 
@@ -92,10 +96,6 @@ ggplot(mpg, aes(x = displ, y = hwy))+
        color = "Drive")+
   theme_bw()
 ```
-
-# Packages and the tidyverse
-
-\[insert text\]
 
 # Working in the tidyverse
 
@@ -132,31 +132,31 @@ df
 
 Well, fortunately, if you're using the tidyverse packages, then there are some very intuitive functions that become available. The first one that we're going to introduce you to is the "select" function. It does exactly what you think it does. You use it to select the variable you want to work with. Let's take a look.
 
-Consider the "satarwars" dataset (another "built it" dataset that you have access to). Before we select the variables that we want to look at, let's look at the dataset itself using the view() function
+Consider the **`satarwars`** dataset (another "built it" dataset that you have access to). Before we select the variables that we want to look at, let's look at the dataset itself using the **`view`** function.
 
 ```{r}
 view(starwars)
 ```
 
-We can extract the names of the 14 variables using the names() function.
+We can extract the names of the 14 variables using the **`names`** function.
 
 ```{r}
 names(starwars)
 ```
 
-Let's imagine that we only want to work with the starwars character's names, height and mass. We start with the select() function and then type in the first argument which is the dataset that we're working with, followed by the names of the variables that you want to include.
+Let's imagine that we only want to work with the starwars character's names, height and mass. We start with the **`select`** function and then type in the first argument which is the dataset that we're working with, followed by the names of the variables that you want to include.
 
 ```{r}
 select(starwars,name, height, mass)
 ```
 
-Similarly, we could filter the data to include only those characters that are taller than 100 cm. We start with the filter() function and then type in the first argument which is the dataset that you're working with, followed by a phrase that describes your selection, like this:
+Similarly, we could filter the data to include only those characters that are taller than 100 cm. We start with the **`filter`** function and then type in the first argument which is the dataset that you're working with, followed by a phrase that describes your selection, like this:
 
 ```{r}
 filter(starwars, height > 100)
 ```
 
-You might also want your data to be ordered from lightest to heaviest. Again, there is an intuitive function that will do just that, in this case the arrange() function. Again, your first argument is the dataset followed by the variable that you want the data to be arranged by.
+You might also want your data to be ordered from lightest to heaviest. Again, there is an intuitive function that will do just that, in this case the **`arrange`** function. Again, your first argument is the dataset followed by the variable that you want the data to be arranged by.
 
 ```{r}
 arrange(starwars, mass)
@@ -166,7 +166,7 @@ arrange(starwars, mass)
 
 In each of the examples above, we've applied one function to the data and produced an output. That output is a new data object with a new set of parameters and characteristics. What if we wanted to apply all of them? In other words, select, certain variables, filter the rows and arrange the data.
 
-One of the most exciting and powerful features of the tidyverse packages is the ability to take the output of any function and pass it on (or pipe it) to the next function. To do this we use what is called "pipe operators" that look funny but have a very simple meaning. The classic pipe opporator looks like this "%\>%" (so it looks a little like a pipe) and it simple means, "and then". Let's take a look:
+One of the most exciting and powerful features of the tidyverse packages is the ability to take the output of any function and pass it on (or pipe it) to the next function. To do this we use what is called "**pipe** **operators**" that look funny but have a very simple meaning. The classic pipe opporator looks like this **`%>%`** (so it looks a little like a pipe) and it simple means, "and then". Let's take a look:
 
 ```{r}
 starwars %>% 
@@ -192,11 +192,11 @@ starwars %>%
   
 ```
 
-Notice that the new name of the variable comes before the equals sign in the rename() function. Also notice that when I selected the variables that I was going to work with, I didn't list them in the order that they existed in the original dataset. Instead, I listed them in the order that I wanted them and that is exactly what I go. So with this code, we've renamed and reordered the variables.
+Notice that the new name of the variable comes before the equals sign in the **`rename`** function. Also notice that when I selected the variables that I was going to work with, I didn't list them in the order that they existed in the original dataset. Instead, I listed them in the order that I wanted them and that is exactly what I go. So with this code, we've renamed and reordered the variables.
 
 ### Drop missing values
 
-Missing values are usually designated NA in your data (NA stands for Not Available). Well go into a lot of detail in a later chapter as to different strategies that you can adopt when dealing with missing values. For now however, its useful to know that you can drop missing values in the tidyverse with the function drop_na(). Let's take a quick look at the hair_color variable in the starwars data set.
+Missing values are usually designated NA in your data (NA stands for Not Available). Well go into a lot of detail in a later chapter as to different strategies that you can adopt when dealing with missing values. For now however, its useful to know that you can drop missing values in the tidyverse with the function **`drop_na`**. Let's take a quick look at the hair_color variable in the starwars data set.
 
 ```{r}
 starwars %>% 
