@@ -218,20 +218,16 @@ Hey, look, you're already producing decent-looking graphics with R! We'll built 
 
 ## Saving your work
 
-As your skill improve and you start working on larger and more complicated data tasks in R, you'll quickly outgrow the console as your primary workspace. By writing and saving your code as a file, you'll be able to reproduce, edit, and share your work with others, even if years elapse between sessions. 
+As your skill improve and you start working on larger and more complicated data tasks in R, you'll quickly outgrow the console as your primary workspace. By writing and saving your code as a file, you'll be able to reproduce, edit, and share your work with others, even if years elapse between sessions.
 
 In the upper-left corner of your RStudio window, you'll see an icon with a green plus atop a blank sheet of paper. Click this and select "R Script." This will open a blank text file in which you can do just this.
 
 (insert pic of simple script)
 
-When you're editing an R script, hitting 'enter' will begin a new line of code rather than executing the command you've just typed. This is by design. To actually run a line of code, instead hit command-enter (Mac) or control-enter (PC). If you additionally hold down shift while doing this, the entire script will run. 
+When you're editing an R script, hitting 'enter' will begin a new line of code rather than executing the command you've just typed. This is by design. To actually run a line of code, instead hit command-enter (Mac) or control-enter (PC). If you additionally hold down shift while doing this, the entire script will run.
 
 You can save your R-script by clicking the disk icon or using the hotkey command-S (Mac) or control-S (PC), and open them from the file menu. In this way, RStudio is just like any other productivity software.
 
 ## Getting help
 
-Getting stuck is an essential part of the learning process. Sooner or later (and probably sooner), your code will throw an error message you don't understand or the task you're tackling will require tools that you haven't even heard of yet. 
-
-
-
-
+Getting stuck is an essential part of the learning process. Sooner or later (and probably sooner), your code will throw an error message you don't understand or the task you're tackling will require tools that you haven't even heard of yet.

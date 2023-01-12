@@ -8,7 +8,6 @@ book:
     - Andrew Gard
   date: "9/18/2022"
   page-navigation: true
-  number-depth: 1
   chapters:
     - index.qmd
     - first_session.qmd
