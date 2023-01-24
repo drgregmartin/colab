@@ -1,0 +1,77 @@
+---
+title: "DPLYR"
+editor: visual
+---
+
+# The DPLYR package
+
+### Manipulating data 
+
+The DPLYR package brings R programming to life. Suddenly, programming in R feels as if you're using natural language to manipulate and wrangle your data. for most Tidyverse fanatics, DPLYR was the gateway package. Once you're hooked, you wonder how you ever did any R programming without it.
+
+Once you've called the Tidyverse into play using the library command, all of the Tidyverse packages are available to you (so you don't have to call the DPLYR package specifically.
+
+```{r echo = FALSE}
+library(tidyverse)
+```
+
+Now you've got access to a range of new functions (sometimes called "verbs") that make manipulating and summarizing your data easy.
+
+### Select 
+
+The first verb that illustrates this is **`select`**. As you might expect, you use it to select the variables that you want to work with. Lets take a look:
+
+```{r}
+select(starwars, name, height, mass)
+```
+
+The first argument of all dplyr verbs is the dataset that you want to manipulate. In this case the starwars dataset that is available to your once you've installed the Tidyverse packages. Then we simply listed the names of the variables that we wanted and wha-la, the output is a new dataset that contains only those variables.
+
+### Filter 
+
+While the `select` function allows you to choose the columns you want to work with, the `filter` function allows you to choose which rows (or observations) you want to include. For example, we might be interested in those `starwars` characters who's mass is more than 70kg.
+
+```{r}
+filter(starwars, mass > 70)
+```
+
+### Arrange
+
+In the same way, you might want to arrange the data the dataset in terms of their height. Easily done:
+
+```{r}
+arrange(starwars, height)
+```
+
+### The pipe operators 
+
+The pipe operators, `%>%` allow you to string these commands together into one composite instruction. How pipe operators work is they take any data object and pipe it into a function as the first object of that function. This is best understood by seeing it work.
+
+```{r}
+starwars %>% 
+  select(name, height, mass) %>% 
+  filter(mass > 70) %>% 
+  arrange(height)
+```
+
+The chunk of code above took the dataset `starwars` and piped it into the `select` function. Notice that the select function didn't need to specify a data object as its first argument. Whenever you work with pipe operators, R will assume that the data object being piped into a function is the first argument of that function, unless you specify otherwise.
+
+Next, the output of the select function was piped into the filter function, and so on.
+
+### Mutate
+
+We can create a new variable (or overwrite an existing variable) with the `mutate` function. Here we quite simply state the name of the new variable as the first argument (or the name of an existing variable that you want to overwrite) and then state what it should be equal to. Let's take the height variable (provided in centimeters) and create a new variable called "height_in_meters" by dividing each value by 100.
+
+```{r}
+starwars %>% 
+  select(name, height) %>% 
+  mutate(height_in_meters = height/100)
+```
+
+We could have easily replaced the values in the existing height variable with the new observations, like this:
+
+```{r}
+starwars %>% 
+  select(name, height) %>% 
+  mutate(height = height/100)
+```
