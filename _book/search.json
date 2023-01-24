@@ -1,0 +1,429 @@
+[
+  {
+    "objectID": "first_session.html",
+    "href": "first_session.html",
+    "title": "1  Your First R Session",
+    "section": "",
+    "text": "When you first open RStudio, you may feel a bit overstimulated. By default, there are three separate panes, all of which have multiple tabs. Don’t worry! While all of these have their uses, as we’ll see, you can safely ignore nearly all of it when you’re getting started. For the moment, we’ll stick to the Console pane (the one with the old-school text welcome message)."
+  },
+  {
+    "objectID": "first_session.html#simple-calculations",
+    "href": "first_session.html#simple-calculations",
+    "title": "1  Your First R Session",
+    "section": "1.1 Simple calculations",
+    "text": "1.1 Simple calculations\nAt the most basic level, R is just a scientific calculator. You can do all the usual arithmetic operations, either one at a time or all at once.\n\n(3 * 2 + 1) ^ 2\n\n[1] 49\n\n\nAll the grey boxes in this chapter show code from the console, together with the resulting output. Obviously, you should be coding along and experimenting as you read!\nAs you can see, R follows standard order of operations. It also includes the full variety of standard mathematical functions, like absolute value and sine, as well as values for important constants like \\(\\pi\\).\n\nabs(-12)\n\n[1] 12\n\nsin(pi/2)\n\n[1] 1\n\n\nDon’t worry - we’re done with trig for the rest of this book."
+  },
+  {
+    "objectID": "first_session.html#variables-and-assignment",
+    "href": "first_session.html#variables-and-assignment",
+    "title": "1  Your First R Session",
+    "section": "1.2 Variables and assignment",
+    "text": "1.2 Variables and assignment\nAs in any programming language, you can assign values to variables and then use those variables in your calculations. These variables don’t have to be single letters; in fact, as a general rule you should avoid gibberish names.\n\nmy_variable <- 12\nmy_variable + 2\n\n[1] 14\n\n\nIn R, the left arrow is used for assignment. While an equal sign (the norm in most languages) will work in R, it’s better to reserve that symbol for other things. This makes sense for a number of reasons, including this one: the mathematical equal sign is symmetric (so a=b is the same thing as b=a), while assignment is directional.\nNotice that in the above code chunk, the calculation auto-printed by default, but the assignment didn’t. We got output back after the second line but not the first. Both of these are typical R behavior.\nAs a matter of practice, you should give your variables descriptive names even when it adds a few keystrokes to your workflow. Eventually, your code will get complicated and you’ll be sharing it with others who will appreciate explicit clues as to what everything means. In general, the best variables names are nouns that are both descriptive and brief."
+  },
+  {
+    "objectID": "first_session.html#vectors-and-functions-of-vectors",
+    "href": "first_session.html#vectors-and-functions-of-vectors",
+    "title": "1  Your First R Session",
+    "section": "1.3 Vectors and functions of vectors",
+    "text": "1.3 Vectors and functions of vectors\nWhen working with data, you’ll usually have many observations of each variable. Most of R’s core functions are built explicitly to respect this need, starting with variable assignment. For instance, the following code stores five temperature readings in a single vector and then takes their average.\n\ntemp <- c(98.2, 97.9, 98.5, 98.2, 98.4)\nmean(temp)\n\n[1] 98.24\n\n\nA vector in R is just an ordered sequence of numbers (or other type of data, as we’ll discuss in the next chapter). The letter c, which stands for concatenate, lets R know that a vector is being created.\nThere are many, many functions which, like mean(), take vectors as arguments and give individual numbers back. A few other common ones are sd(), sum(), min(), max(), and length(). Explore to find more!\nOther functions return a vector instead. For instance, you might be able to guess what sort(temp) will return. But can you figure out what diff() is doing in the following chunk?\n\ndiff(temp)\n\n[1] -0.3  0.6 -0.3  0.2"
+  },
+  {
+    "objectID": "first_session.html#vectorized-operations",
+    "href": "first_session.html#vectorized-operations",
+    "title": "1  Your First R Session",
+    "section": "1.4 Vectorized operations",
+    "text": "1.4 Vectorized operations\nMost computations in R are vectorized, meaning that they can be applied as easily to vectors as individual values. For instance, the following code converts every value in the temps vector from Fahrenheit to Centigrade, then prints the result.\n\ntemp_c <- (temp - 32) * 5/9\ntemp_c\n\n[1] 36.77778 36.61111 36.94444 36.77778 36.88889\n\n\nAddition, subtraction, multiplication, and division of vectors is handled component-wise, meaning that R always looks at corresponding elements of the vectors in question.\n\nambient_temp <- c(68.2, 69.3, 67.3, 70.0, 68.3)\ntemp - ambient_temp\n\n[1] 30.0 28.6 31.2 28.2 30.1\n\n\nIf you’re a math person, you should take particular note of the fact that multiplication works this way as well, regardless of what you were taught in linear algebra class.\n\ntemp * c(2, 4, 3, 10, 1)\n\n[1] 196.4 391.6 295.5 982.0  98.4\n\n\nMost built-in R functions are also vectorized, meaning they will operate component-wise in the natural way. For instance, the following code takes the natural logarithm of all the temperatures in our little data set.\n\nlog(temp)\n\n[1] 4.587006 4.583947 4.590057 4.587006 4.589041"
+  },
+  {
+    "objectID": "first_session.html#optional-arguments",
+    "href": "first_session.html#optional-arguments",
+    "title": "1  Your First R Session",
+    "section": "1.5 Optional arguments",
+    "text": "1.5 Optional arguments\nMany R functions give the user the option of specifying additional information to refine the way the inputs are processed. The log() functions is a case in point. By default, it compute the natural logarithm, that is, the logarithm with base \\(e\\). We can change this by specifying the base argument.\n\nlog(temp, base = 10)\n\n[1] 1.992111 1.990783 1.993436 1.992111 1.992995\n\n\nWhile R will often allow you to omit the name of the argument, as in the following chunk, you should be judicious in your use of that shortcut.\n\nlog(temp, 10)\n\n[1] 1.992111 1.990783 1.993436 1.992111 1.992995\n\n\nClear code helps minimize errors and makes troubleshooting easier - well worth the investment of a few extra keystrokes."
+  },
+  {
+    "objectID": "first_session.html#the-environment-and-history-tabs",
+    "href": "first_session.html#the-environment-and-history-tabs",
+    "title": "1  Your First R Session",
+    "section": "1.6 The Environment and History tabs",
+    "text": "1.6 The Environment and History tabs\nFor the first time, let’s look at a pane other than the console. In the upper-right quadrant of your RStudio window, you have two helpful tabs. The first of these, Environment, shows all the user-defined objects that R currently has stored in it’s memory. Currently there are four vectors, ambient_temp, my_variable, temp, and temp_c. All are numeric vectors (we’ll learn about other types of vectors shortly) and all except my_variable have length 5. Since the length of my_variable is one, RStudio just displays its value, not its structure, in the Environment pane.\nNext to this is the History tab, which shows commands that have been executed recently. If you want to re-run one of these commands, you can double-click to send it to the console, where it can be executed as usual."
+  },
+  {
+    "objectID": "first_session.html#importing-spreadsheets",
+    "href": "first_session.html#importing-spreadsheets",
+    "title": "1  Your First R Session",
+    "section": "1.7 Importing spreadsheets",
+    "text": "1.7 Importing spreadsheets\nWhile reading data into R (or any other system) can get complicated, RStudio makes it easy to import the most common sort of set: the spreadsheet. In the lower-right pane, you’ll find a tab labelled Files, which you can use to browse around your machine until you find the spreadsheet you need.\n(insert image with arrows)\nNotice the breadcrumbs at the top of the Files pane describing your current location. Clicking on one of these will move you back toward your root, while clicking folders in the browser itself will move you away from it. Once you’ve found the file you want, select it and then click Import Dataset from the little menu that appears.\n[image showing import of temperatures.csv]\nA warning to those of you that might be more experienced coders: navigating around in Files tab doesn’t change R’s working directory, as you can check with getwd(). While it is possible to change your working directory with setwd(), that’s usually not best practice for the working data scientist. More about this in chapter (insert ref).\nYou’ll now get a popup showing, among other things, a preview of the spreadsheet and a recommended code snippet to import it. For most day-to-day purposes, it’s totally fine to ignore this window entirely and just click the Import button, which will close the popup and execute the snippet. For more details about how to customize all of this, see chapter (insert ref).\nThe spreadsheet is now saved in R’s working memory, as you can see by checking the Environment tab. RStudio will also automatically open up a fuller preview of the set in a new pane in the upper-left. You can scan around, search, and sort by column values here, if you like.\nIf you look back to your console, you’ll see the code that RStudio has used to make all this happen. We’ll put off talking about library() until in the next chapter and read_csv() much later (insert ref), but View() is worth noticing right away. This is the command that actually caused R to display the data set in that new pane. You’ll find yourself using this simple command throughout your data science career.\nThe spreadsheet view is intended as a convenience, not as a real working tool. R is fundamentally different in its approach than spreadsheet software like Excel, and any real data reorganization or manipulation will take place via our code."
+  },
+  {
+    "objectID": "first_session.html#working-with-data-sets",
+    "href": "first_session.html#working-with-data-sets",
+    "title": "1  Your First R Session",
+    "section": "1.8 Working with data sets",
+    "text": "1.8 Working with data sets\nFundamentally, R views a data frame like temperatures as a collection of columns, each of which is a vector. To refer to one of these vectors, use the format set$variable, like so:\n\ntemperatures$ambient_temp\n\n[1] 68.2 69.3 67.3 70.0\n\n\nYou can do all the usual things to such a vector, like finding its median.\n\nmedian(temperatures$ambient_temp)\n\n[1] 68.75\n\n\nAs one might hope, you can add or modify a column with the assignment operator:\n\ntemperatures$difference <- temperatures$temp - temperatures$ambient_temp\ntemperatures\n\n# A tibble: 4 × 3\n   temp ambient_temp difference\n  <dbl>        <dbl>      <dbl>\n1  98.2         68.2       30  \n2  97.9         69.3       28.6\n3  98.5         67.3       31.2\n4  98.2         70         28.2\n\n\nIn chapter (ref) we’ll learn a more general and flexible (but also more verbose) way to add or change columns in a data frame using the mutate() command.\nThere are many functions in R that accept data frames as arguments. For instance, nrow(temperatures) and ncol(temperatures) return the length and width, respectively, of the data frame, while colnames(temperatures) returns, well, the column names. Finally, summary() will provide a six-number summary of each quantitative variable in the set. Try it!\n\nsummary(temperatures)\n\n      temp        ambient_temp     difference  \n Min.   :97.90   Min.   :67.30   Min.   :28.2  \n 1st Qu.:98.12   1st Qu.:67.97   1st Qu.:28.5  \n Median :98.20   Median :68.75   Median :29.3  \n Mean   :98.20   Mean   :68.70   Mean   :29.5  \n 3rd Qu.:98.28   3rd Qu.:69.47   3rd Qu.:30.3  \n Max.   :98.50   Max.   :70.00   Max.   :31.2"
+  },
+  {
+    "objectID": "first_session.html#built-in-data-sets",
+    "href": "first_session.html#built-in-data-sets",
+    "title": "1  Your First R Session",
+    "section": "1.9 Built-in data sets",
+    "text": "1.9 Built-in data sets\nR comes with quite a few data sets pre-loaded for you to practice with. For instance, the faithful set includes 272 observations of eruptions of the Old Faithful geyser in Wyoming, USA. Take a look at the set with View(faithful) and learn a little more about it with ?faithful.\nYou can do all the same things with faithful as you can with the imported data set temperatures. For instance, faitful$eruptions is a vector of length 272 and mean(faithful$eruptions) gives its numerical average (about 3.5 minutes). We can already begin to explore relationships between variables, for instance by computing the correlation between eruption length and time between eruptions.\n\ncor(faithful$eruptions, faithful$waiting)\n\n[1] 0.9008112\n\n\nYou can see a complete listing of R’s built-in data sets with data()."
+  },
+  {
+    "objectID": "first_session.html#installing-and-using-r-packages",
+    "href": "first_session.html#installing-and-using-r-packages",
+    "title": "1  Your First R Session",
+    "section": "1.10 Installing and using R packages",
+    "text": "1.10 Installing and using R packages\nR is open-source software, meaning that it’s not owned by any for-profit corporation, and is constantly being expanded and made more powerful by its community of users. The Comprehensive R Archive Network (CRAN for short) houses over 18,000 packages, collections of functions and other goodies that you can install and use directly from the R console. The packages tab in the lower-right pane of RStudio shows just a small selection of those available.\nOver time, some packages have become so widely-adopted as to be almost core to R itself. Chief among these are the so-called tidyverse family of packages, which are maintained by Posit, the company that makes RStudio itself. The tidyverse consists of eight core packages, nearly all of which we’ll make use of in this book and which we wholeheartedly recommend for your day-to-day data analysis practice. Install these tools right away with\n\ninstall.packages(\"tidyverse\")\n\nWhile this command will download and install the tidyverse packages onto your machine, it won’t make them available for you to use until you ask.\n\nlibrary(tidyverse)\n\n── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──\n✔ ggplot2 3.4.0      ✔ dplyr   1.0.10\n✔ tibble  3.1.8      ✔ stringr 1.4.1 \n✔ tidyr   1.2.1      ✔ forcats 0.5.2 \n✔ purrr   0.3.5      \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\n\n\nYou only need to execute the install.packages() command once per packages, but you’ll need to type library() at the start of every new session where you want to use it. In this way, packages are similar to any other sort of software: generally you only need to install them once, but you need to explicitly open them every time you want to use them."
+  },
+  {
+    "objectID": "first_session.html#more-about-data-sets-in-r",
+    "href": "first_session.html#more-about-data-sets-in-r",
+    "title": "1  Your First R Session",
+    "section": "1.11 More about data sets in R",
+    "text": "1.11 More about data sets in R\nIf you type data() again after loading tidyverse, you’ll see that there are now many more practice data sets available to you. One of the most standard of these is the mpg set, which includes fuel-efficiency data on 234 cars from model years 1999 and 2008. As with faithful, you can learn more about this set with ?mpg.\nInstead of viewing this set, let’s use one of the new functions we imported with library(tidyverse).\n\nglimpse(mpg)\n\nRows: 234\nColumns: 11\n$ manufacturer <chr> \"audi\", \"audi\", \"audi\", \"audi\", \"audi\", \"audi\", \"audi\", \"…\n$ model        <chr> \"a4\", \"a4\", \"a4\", \"a4\", \"a4\", \"a4\", \"a4\", \"a4 quattro\", \"…\n$ displ        <dbl> 1.8, 1.8, 2.0, 2.0, 2.8, 2.8, 3.1, 1.8, 1.8, 2.0, 2.0, 2.…\n$ year         <int> 1999, 1999, 2008, 2008, 1999, 1999, 2008, 1999, 1999, 200…\n$ cyl          <int> 4, 4, 4, 4, 6, 6, 6, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6, 8, 8, …\n$ trans        <chr> \"auto(l5)\", \"manual(m5)\", \"manual(m6)\", \"auto(av)\", \"auto…\n$ drv          <chr> \"f\", \"f\", \"f\", \"f\", \"f\", \"f\", \"f\", \"4\", \"4\", \"4\", \"4\", \"4…\n$ cty          <int> 18, 21, 20, 21, 16, 18, 18, 18, 16, 20, 19, 15, 17, 17, 1…\n$ hwy          <int> 29, 29, 31, 30, 26, 26, 27, 26, 25, 28, 27, 25, 25, 25, 2…\n$ fl           <chr> \"p\", \"p\", \"p\", \"p\", \"p\", \"p\", \"p\", \"p\", \"p\", \"p\", \"p\", \"p…\n$ class        <chr> \"compact\", \"compact\", \"compact\", \"compact\", \"compact\", \"c…\n\n\nThe glimpse() command from the {dplyr} packages does exactly what its name implies, giving you a neat listing of all the columns in the set along with the first few values of each. By design, this isn’t nearly as expansive as the output of View(), focusing attention on the structure of the set rather than individual observations.\nTake notice of the second column in the output above. Here, glimpse() is telling us the data type of each of the vectors making up the mpg set, <chr> for character (strings of letters and other symbols), <dbl> for decimal numbers (technically double-precision floating-point decimal), and <int> for integer. While there are many different data types in R, including date-times (<dttm>) and factors (<fct>), 95% of the time it’s fine to just think of your vectors either as numeric (doubles, integers and the like) or categorical (character, factor, and the like). Unlike other programming languages, R tends to be forgiving about the subtle differences within those larger classifications. See chapter (ref needed) for help with the other 5% of cases.\nThis is illustrated by the simplest plotting function in the tidyverse family, qplot(), short for quick plot, which automatically decides whether to produce a bar chart (categorical data) or histogram (quantitative data).\n\nqplot(mpg$trans)\n\nWarning: `qplot()` was deprecated in ggplot2 3.4.0.\n\n\n\n\nqplot(mpg$cty)\n\n`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.\n\n\n\n\n\nHey, look, you’re already producing decent-looking graphics with R! We’ll built on this capability in the very next chapter."
+  },
+  {
+    "objectID": "first_session.html#saving-your-work",
+    "href": "first_session.html#saving-your-work",
+    "title": "1  Your First R Session",
+    "section": "1.12 Saving your work",
+    "text": "1.12 Saving your work\nAs your skill improve and you start working on larger and more complicated data tasks in R, you’ll quickly outgrow the console as your primary workspace. By writing and saving your code as a file, you’ll be able to reproduce, edit, and share your work with others, even if years elapse between sessions.\nIn the upper-left corner of your RStudio window, you’ll see an icon with a green plus atop a blank sheet of paper. Click this and select “R Script.” This will open a blank text file in which you can do just this.\n(insert pic of simple script)\nWhen you’re editing an R script, hitting ‘enter’ will begin a new line of code rather than executing the command you’ve just typed. This is by design. To actually run a line of code, instead hit command-enter (Mac) or control-enter (PC). If you additionally hold down shift while doing this, the entire script will run.\nYou can save your R-script by clicking the disk icon or using the hotkey command-S (Mac) or control-S (PC), and open them from the file menu. In this way, RStudio is just like any other productivity software."
+  },
+  {
+    "objectID": "first_session.html#getting-help",
+    "href": "first_session.html#getting-help",
+    "title": "1  Your First R Session",
+    "section": "1.13 Getting help",
+    "text": "1.13 Getting help\nGetting stuck is an essential part of the learning process. Sooner or later (and probably sooner), your code will throw an error message you don’t understand or the task you’re tackling will require tools that you haven’t even heard of yet."
+  },
+  {
+    "objectID": "exploring data visually.html",
+    "href": "exploring data visually.html",
+    "title": "2  I have resaved this chapater as exploring data visually 2",
+    "section": "",
+    "text": "There is no better way of letting your data tell its story than through data visualization. This is also an important step in understanding the relationships between variables and developing research questions. We’d put this introduction to data visualization early on in the book because we believe that you’ll find being able to “see” what you are able to do with just a few lines of code, you’ll be motivated to continue with your journey to learn R. The point of this chapter is to get you excited about R. We’ll do some more advanced data visualization later on in the book once you’ve developed some data wrangling skills."
+  },
+  {
+    "objectID": "exploring data visually.html#the-grammar-of-graphics",
+    "href": "exploring data visually.html#the-grammar-of-graphics",
+    "title": "2  I have resaved this chapater as exploring data visually 2",
+    "section": "2.1 The grammar of graphics",
+    "text": "2.1 The grammar of graphics\nThe world of data visualization has been revolutionized with the introduction of ggplot2 - an R package that leans on a new of thinking about graphics. The starting point is to understand the “grammar of graphics” - these are the various parameters that need to be included in your code that will translate into meaningful visual characteristics in your plot. The power of this new way of thinking is that it allows you to build a plot, layer upon layer, combining geometry and aesthetics like an artist working on a canvas.\nThe best way to learn and understand the grammar of graphics is to look at an example. We’re going to take a look at the “mpg” dataset that contains information about fuel efficiency for a number cars. We’ll start by visualizing the relationship between two variables, namely “hwy” (highway miles per gallon) and “displ” (engine displacement - or size of the engine). To plot this relationship we need to define a few things:\n\nwhat data is being used,\nhow the two variables are mapped against the x and y axis’ of our plot and\nwhat kind of geometry should ggplot use to represent the data (a bar chart, scatter plot, line graph etc.).\n\nLet’s create the plot and then take a closer look at the code:\n\nlibrary(tidyverse)\n\n── Attaching packages ─────────────────────────────────────── tidyverse 1.3.2 ──\n✔ ggplot2 3.4.0      ✔ purrr   0.3.5 \n✔ tibble  3.1.8      ✔ dplyr   1.0.10\n✔ tidyr   1.2.1      ✔ stringr 1.4.1 \n✔ readr   2.1.3      ✔ forcats 0.5.2 \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\n\nggplot(data = mpg,\n       mapping = aes(x = displ, y = hwy))+\n  geom_point()\n\n\n\n\nLet’s take a closer look at the three principle components of grammar of graphics.\n\n2.1.1 Data:\nWhile ggplot has a “data” argument that allows you to define what data will be used to generate your plot, you can also feed the data directly into ggplot using pipe operators (but more about that later).\n\n\n2.1.2 Mapping aesthetics:\nTo tell your data story, you need to specify how variables within the data are mapped to aesthetic features of your plot. The most obvious examples are the x and y axis. You can also map variables to colors, shapes and sizes and other aesthetic qualities as we’ll demonstrate in examples below.\n\n\n2.1.3 Geometry\nBy defining the geometry you tell R what kind of plot to create (a boxplot, a histogram, a line graph etc.). The beauty of ggplot is that you can create layers of geometry, each with its own aesthetic mapping. Its this feature that sets ggplot apart.\nIts this feature of laying one geometry over another that we want to demonstrate early on in your journey. By adding one simple line of code we can superimpose a smoothed linear model with standard errors to demonstrate the relationship between these two variables.\n\nggplot(data = mpg,\n       mapping = aes(x = displ, \n                     y = hwy))+\n  geom_point()+\n  geom_smooth()+\n  labs(title = \"Highway efficency by engine size\",\n       x = \"Engine size in litres\", \n       y = \"Mile per gallon on the highway\")+\n  theme_bw()\n\n`geom_smooth()` using method = 'loess' and formula = 'y ~ x'\n\n\n\n\n\nEach time we add a ‘+’ at the end of a line, we’re telling ggplot that we’re going to add another layer or add information about how the plot should look. The ‘labs’ function above is for labels and the theme_bw is one of the many built in themes that you can easily add to a plot to clean it up.\nNow let’s add a little color to the plot and look at the same data but distinguish between cars of different “drives” (four wheel drive, front wheel drive, rear wheel drive etc.). To ensure that the plot doesn’t get too messy, we’re going to remove the standard error shading from the smoothed linear models.\n\nmpg %>% \nggplot(mapping = aes(x = displ, \n                     y = hwy,\n                     colour = drv))+\n  geom_point()+\n  geom_smooth(se = FALSE)+\n  labs(title = \"Highway efficency by engine size\",\n       x = \"Engine size in litres\", \n       y = \"Mile per gallon on the highway\",\n       color = \"Drive\")+\n  theme_bw()\n\n`geom_smooth()` using method = 'loess' and formula = 'y ~ x'"
+  },
+  {
+    "objectID": "exploring data quantitatively.html",
+    "href": "exploring data quantitatively.html",
+    "title": "3  Exploring data quantitatively",
+    "section": "",
+    "text": "If visualizations tell the data’s story, the numbers are the plot. Here we learn essential tools for summarizing and quantifying various aspects of data sets"
+  },
+  {
+    "objectID": "exploring data quantitatively.html#basic-exploratory-functions-head-summary-glimpse-etc",
+    "href": "exploring data quantitatively.html#basic-exploratory-functions-head-summary-glimpse-etc",
+    "title": "3  Exploring data quantitatively",
+    "section": "3.1 Basic exploratory functions (head, summary, glimpse, etc)",
+    "text": "3.1 Basic exploratory functions (head, summary, glimpse, etc)\n2 pages"
+  },
+  {
+    "objectID": "exploring data quantitatively.html#functions-for-summarizing-variables",
+    "href": "exploring data quantitatively.html#functions-for-summarizing-variables",
+    "title": "3  Exploring data quantitatively",
+    "section": "3.2 Functions for summarizing variables",
+    "text": "3.2 Functions for summarizing variables\n\nquantitative (quantile, sd, etc)\ncategorical (table, etc)\n\n2 pages"
+  },
+  {
+    "objectID": "exploring data quantitatively.html#grouped-summaries",
+    "href": "exploring data quantitatively.html#grouped-summaries",
+    "title": "3  Exploring data quantitatively",
+    "section": "3.3 Grouped summaries",
+    "text": "3.3 Grouped summaries\n\nintroduce the pipe here\n\n7 pages"
+  },
+  {
+    "objectID": "exploring data quantitatively.html#missing-data",
+    "href": "exploring data quantitatively.html#missing-data",
+    "title": "3  Exploring data quantitatively",
+    "section": "3.4 Missing data",
+    "text": "3.4 Missing data\nWhat specifically belongs here?\n1 page"
+  },
+  {
+    "objectID": "practical data science with r.html",
+    "href": "practical data science with r.html",
+    "title": "4  Practicing good data science with R",
+    "section": "",
+    "text": "Now that we’ve developed some basic facility for working with data in R, it’s time to think about our process a little bit. What does good data science in R look like? How should we stay organized? How can we make sure that we can understand and replicate our own work even if real life distracts us for a few days or weeks?"
+  },
+  {
+    "objectID": "practical data science with r.html#projects",
+    "href": "practical data science with r.html#projects",
+    "title": "4  Practicing good data science with R",
+    "section": "4.1 Projects",
+    "text": "4.1 Projects\nBy now you’ve probably started a folder somewhere on your machine with a nondescript title like, “R” or “R practice,” perhaps on your desktop or in your documents folder. As your data science skills grow, however, you’ll find yourself working on more complicated tasks, each of which might require multiple scripts, spreadsheets, and other files. Having an organizational system in place becomes essential for at least three reasons:\n\nYour own sanity\nR’s ability to find files when asked\nYour collaborators’ ability to reproduce your work. This includes future you!\n\nRStudio provides a convenient tool helping with all of this: the project."
+  },
+  {
+    "objectID": "practical data science with r.html#importing-flat-files-csv-and-excel",
+    "href": "practical data science with r.html#importing-flat-files-csv-and-excel",
+    "title": "4  Practicing good data science with R",
+    "section": "4.2 Importing flat files (csv and excel)",
+    "text": "4.2 Importing flat files (csv and excel)\nPreviously we’ve imported data with R Studio’s file browser. Here we get a little more into the code.\n2 pages"
+  },
+  {
+    "objectID": "practical data science with r.html#writing-data-sets",
+    "href": "practical data science with r.html#writing-data-sets",
+    "title": "4  Practicing good data science with R",
+    "section": "4.3 Writing data sets",
+    "text": "4.3 Writing data sets\n1 page"
+  },
+  {
+    "objectID": "practical data science with r.html#best-practices-for-readable-code",
+    "href": "practical data science with r.html#best-practices-for-readable-code",
+    "title": "4  Practicing good data science with R",
+    "section": "4.4 Best practices for readable code",
+    "text": "4.4 Best practices for readable code\n\nnaming conventions\nsnake case\ncomments\nspacing and indenting\nthe tidyverse style guide\n\n3 pages"
+  },
+  {
+    "objectID": "case study 1.html",
+    "href": "case study 1.html",
+    "title": "5  Case study #1",
+    "section": "",
+    "text": "A clean data set with both categorical and quantitative variables, allowing for easy summary and visualization."
+  },
+  {
+    "objectID": "manipulating data.html",
+    "href": "manipulating data.html",
+    "title": "6  Manipulating data",
+    "section": "",
+    "text": "Wild-caught data sets usually d don’t include exactly the variables we want. Learn how to carve out the fat and add meat where it’s needed."
+  },
+  {
+    "objectID": "manipulating data.html#editing-cells-and-columns-directly",
+    "href": "manipulating data.html#editing-cells-and-columns-directly",
+    "title": "6  Manipulating data",
+    "section": "6.1 Editing cells and columns directly",
+    "text": "6.1 Editing cells and columns directly\n2 pages"
+  },
+  {
+    "objectID": "manipulating data.html#mutate",
+    "href": "manipulating data.html#mutate",
+    "title": "6  Manipulating data",
+    "section": "6.2 mutate",
+    "text": "6.2 mutate\n2 pages jhjjh"
+  },
+  {
+    "objectID": "manipulating data.html#select",
+    "href": "manipulating data.html#select",
+    "title": "6  Manipulating data",
+    "section": "6.3 select",
+    "text": "6.3 select\n\ntidyselect syntax more generally\n\n3 pages"
+  },
+  {
+    "objectID": "manipulating data.html#filter-and-arrange-row-selection-and-ordering",
+    "href": "manipulating data.html#filter-and-arrange-row-selection-and-ordering",
+    "title": "6  Manipulating data",
+    "section": "6.4 filter and arrange (row selection and ordering)",
+    "text": "6.4 filter and arrange (row selection and ordering)\n3 pages"
+  },
+  {
+    "objectID": "manipulating data.html#group_by-and-summarize-revisited",
+    "href": "manipulating data.html#group_by-and-summarize-revisited",
+    "title": "6  Manipulating data",
+    "section": "6.5 group_by and summarize revisited",
+    "text": "6.5 group_by and summarize revisited\n2 pages"
+  },
+  {
+    "objectID": "cleaning data.html",
+    "href": "cleaning data.html",
+    "title": "7  Cleaning data",
+    "section": "",
+    "text": "Once you load your data, you will quickly realize how messy it is. From missing data to strange variable types and columns full of unwanted characters; there are so many things that can be wrong about your data. This chapter will address some common cases that require data cleaning"
+  },
+  {
+    "objectID": "cleaning data.html#principles-of-tidy-data",
+    "href": "cleaning data.html#principles-of-tidy-data",
+    "title": "7  Cleaning data",
+    "section": "7.1 Principles of tidy data",
+    "text": "7.1 Principles of tidy data\n2 page"
+  },
+  {
+    "objectID": "cleaning data.html#pivoting",
+    "href": "cleaning data.html#pivoting",
+    "title": "7  Cleaning data",
+    "section": "7.2 Pivoting",
+    "text": "7.2 Pivoting\n5 pages"
+  },
+  {
+    "objectID": "cleaning data.html#splitting-and-combining-columns",
+    "href": "cleaning data.html#splitting-and-combining-columns",
+    "title": "7  Cleaning data",
+    "section": "7.3 Splitting and combining columns",
+    "text": "7.3 Splitting and combining columns\n2 pages"
+  },
+  {
+    "objectID": "cleaning data.html#recodingreplacing-data",
+    "href": "cleaning data.html#recodingreplacing-data",
+    "title": "7  Cleaning data",
+    "section": "7.4 Recoding/replacing data",
+    "text": "7.4 Recoding/replacing data\nHow much string manipulation do we really want here? I suspect regex belongs in the technical section.\n3 pages"
+  },
+  {
+    "objectID": "cleaning data.html#dealing-with-missing-values",
+    "href": "cleaning data.html#dealing-with-missing-values",
+    "title": "7  Cleaning data",
+    "section": "7.5 Dealing with missing values",
+    "text": "7.5 Dealing with missing values\n2 pages"
+  },
+  {
+    "objectID": "cleaning data.html#modifying-variable-types",
+    "href": "cleaning data.html#modifying-variable-types",
+    "title": "7  Cleaning data",
+    "section": "7.6 Modifying variable types",
+    "text": "7.6 Modifying variable types\n2 pages"
+  },
+  {
+    "objectID": "modeling data.html",
+    "href": "modeling data.html",
+    "title": "8  Modeling data",
+    "section": "",
+    "text": "If you’ve gotten this far, there are probably many questions that you may be trying to answer using your data. The possibilities are endless here, but we will focus on some of the most common and basic questions and data analyses methods that you may want to use."
+  },
+  {
+    "objectID": "modeling data.html#single-variable-techniques",
+    "href": "modeling data.html#single-variable-techniques",
+    "title": "8  Modeling data",
+    "section": "8.1 Single-variable techniques",
+    "text": "8.1 Single-variable techniques\n\nConfidence intervals and sig tests with t.test\nChi-squared goodness-of-fit test\n\n5 pages"
+  },
+  {
+    "objectID": "modeling data.html#other-practical-tools-from-stats-101",
+    "href": "modeling data.html#other-practical-tools-from-stats-101",
+    "title": "8  Modeling data",
+    "section": "8.2 Other practical tools from stats 101",
+    "text": "8.2 Other practical tools from stats 101\n\nPaired and unpaired 2-sample techniques\nChi-squared test for independence\nCorrelation\nAnova\n\n8 pages"
+  },
+  {
+    "objectID": "modeling data.html#regression-modeling",
+    "href": "modeling data.html#regression-modeling",
+    "title": "8  Modeling data",
+    "section": "8.3 Regression modeling",
+    "text": "8.3 Regression modeling\n\nBasic use of lm. Interpreting the output of a model summary\nDiagnostic plots\nAdding a categorical explainer\nAdditional quantitative explainers\nModel selection: anova, adjusted \\(R^2\\), AIC\nTidying with broom\nInterpolation and prediction\n\n15 pages"
+  },
+  {
+    "objectID": "modeling data.html#logistic-regression",
+    "href": "modeling data.html#logistic-regression",
+    "title": "8  Modeling data",
+    "section": "8.4 Logistic regression",
+    "text": "8.4 Logistic regression\nRepeat much of the above. Approx 12 pages"
+  },
+  {
+    "objectID": "modeling data.html#going-deeper",
+    "href": "modeling data.html#going-deeper",
+    "title": "8  Modeling data",
+    "section": "8.5 Going deeper",
+    "text": "8.5 Going deeper\nA quick survey of some of the other machine learning tools available in R, tidymodels in particular."
+  },
+  {
+    "objectID": "presenting data.html",
+    "href": "presenting data.html",
+    "title": "10  Presenting data",
+    "section": "",
+    "text": "A data analysis isn’t complete until it’s shared with others, and it won’t be accepted unless it’s presented in a clear and professional manner. In this chapter, we learn how to do just that, as well as building tools for working collaboratively with others on larger projects."
+  },
+  {
+    "objectID": "presenting data.html#quarto",
+    "href": "presenting data.html#quarto",
+    "title": "10  Presenting data",
+    "section": "10.1 Quarto",
+    "text": "10.1 Quarto\n\nmarkup syntax vs visual editor. Links, bullet points, italics, formatting, etc\nR/python/etc code chunks\nsections, footnotes, etc.\nincluding technical symbols\nincluding images\ntables\nMention R Markdown\n\n10 pages"
+  },
+  {
+    "objectID": "presenting data.html#visualization-for-communication",
+    "href": "presenting data.html#visualization-for-communication",
+    "title": "10  Presenting data",
+    "section": "10.2 Visualization for communication",
+    "text": "10.2 Visualization for communication\n\nannotations and labels\ncolors\nthemes\naccessibility\ndataviz best practices\n\n8 pages"
+  },
+  {
+    "objectID": "presenting data.html#portability-and-reproducibility",
+    "href": "presenting data.html#portability-and-reproducibility",
+    "title": "10  Presenting data",
+    "section": "10.3 Portability and reproducibility",
+    "text": "10.3 Portability and reproducibility\n2 pages"
+  },
+  {
+    "objectID": "presenting data.html#git-and-github",
+    "href": "presenting data.html#git-and-github",
+    "title": "10  Presenting data",
+    "section": "10.4 Git and github",
+    "text": "10.4 Git and github\n\nversion control with git\ncollaboration with github\n\n12 pages"
+  },
+  {
+    "objectID": "getting technical.html",
+    "href": "getting technical.html",
+    "title": "11  Getting technical",
+    "section": "",
+    "text": "Real-world data sets have real-world quirks that often require more sophisticated, specialized tools. In this chapter, we develop some additional powerful techniques for dealing with wild-caught data sets."
+  },
+  {
+    "objectID": "getting technical.html#relational-data",
+    "href": "getting technical.html#relational-data",
+    "title": "11  Getting technical",
+    "section": "11.1 Relational data",
+    "text": "11.1 Relational data\n\nrbind and cbind\nleft_join (mention other mutating joins but don’t dwell)\nfiltering joins (brief)\n\n7 pages"
+  },
+  {
+    "objectID": "getting technical.html#dates-and-times",
+    "href": "getting technical.html#dates-and-times",
+    "title": "11  Getting technical",
+    "section": "11.2 Dates and times",
+    "text": "11.2 Dates and times\n4 pages"
+  },
+  {
+    "objectID": "getting technical.html#factor-variables",
+    "href": "getting technical.html#factor-variables",
+    "title": "11  Getting technical",
+    "section": "11.3 Factor variables",
+    "text": "11.3 Factor variables\n5 pages"
+  },
+  {
+    "objectID": "getting technical.html#strings",
+    "href": "getting technical.html#strings",
+    "title": "11  Getting technical",
+    "section": "11.4 Strings",
+    "text": "11.4 Strings\nregex goes here\n2 pages"
+  },
+  {
+    "objectID": "getting technical.html#user-defined-functions",
+    "href": "getting technical.html#user-defined-functions",
+    "title": "11  Getting technical",
+    "section": "11.5 User-defined functions",
+    "text": "11.5 User-defined functions\n3 pages"
+  },
+  {
+    "objectID": "getting technical.html#lists-esp-of-data-frames",
+    "href": "getting technical.html#lists-esp-of-data-frames",
+    "title": "11  Getting technical",
+    "section": "11.6 Lists, esp of data frames",
+    "text": "11.6 Lists, esp of data frames\n2 pages"
+  },
+  {
+    "objectID": "getting technical.html#iteration",
+    "href": "getting technical.html#iteration",
+    "title": "11  Getting technical",
+    "section": "11.7 Iteration",
+    "text": "11.7 Iteration\n\nloops\nlapply\n\n4 pages"
+  },
+  {
+    "objectID": "getting technical.html#r-and-oop-mostly-references",
+    "href": "getting technical.html#r-and-oop-mostly-references",
+    "title": "11  Getting technical",
+    "section": "11.8 R and OOP (Mostly references)",
+    "text": "11.8 R and OOP (Mostly references)"
+  },
+  {
+    "objectID": "getting technical.html#importing-data-move-elsewhere",
+    "href": "getting technical.html#importing-data-move-elsewhere",
+    "title": "11  Getting technical",
+    "section": "11.9 Importing data (move elsewhere)",
+    "text": "11.9 Importing data (move elsewhere)\n\nmore on readr and readxl functions. Skipping lines, etc\nother formats. Stata, spss, etc\ndata from the web\n\n4 pages"
+  }
+]
