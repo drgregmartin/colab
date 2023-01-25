@@ -75,3 +75,58 @@ starwars %>%
   select(name, height) %>% 
   mutate(height = height/100)
 ```
+
+### drop_na
+
+We'll go into a lot more detail about how to deal with missing values in a later chapter. Removing missing values (which is one way of dealing with them) is however very easy. In R programming, missing values are usually referred to as `NA` (which stands for Not Available). We can use the `drop_na` function re remove observations that have missing values in specified variables. So if we want to remove all rows that contain any missing values in either the `height` or the `mass` variables we could use the code:
+
+```{r}
+starwars %>% 
+  drop_na(height, mass)
+```
+
+Note that we've still included observations that have missing values in other variables. You could drop missing values from all columns but not specifying any variables as arguments in the function, like this:
+
+```{r}
+starwars %>% 
+  drop_na()
+```
+
+### Summarise 
+
+You can also summarise your data using the `summerise` function. Take a look:
+
+```{r}
+starwars %>% 
+  select(height, mass) %>% 
+  drop_na() %>% 
+  summarise(total_hight = sum(height), 
+            total_mass = sum(mass))
+```
+
+Notice how we've used the `sum` function to add up a column inside the `summarise` function. Let's do the same thing but this time calculate the average height and mass for the two variables. To make it a little more interesting, we'll calculate the average height and mass for male characters only:
+
+```{r}
+starwars %>% 
+  select(height, mass, sex) %>% 
+  filter(sex == "male") %>% 
+  drop_na() %>% 
+  summarize(average_height_of_males = mean(height),
+            average_mass_of_males = mean(mass))
+  
+```
+
+When using the `filter` function, you need to use a double `=` to indicate that you want R to consider each row of data and only include those rows where the criterion is met. You might have noticed that in the above code I used the american spelling of `summarize` instead of `summarise`. Both work of course.
+
+### group_by
+
+What if we wanted to compare the average height men and women? Nobody panic, the `dplyr` package has got that problem covered. You can use the `group_by` function to group your data by any categorical variable. Using this in combination with the `summarize` function allows you to make calculations for each group separately.
+
+```{r}
+starwars %>% 
+  select(height, sex) %>% 
+  filter(sex == "male" | sex == "female") %>% 
+  drop_na() %>% 
+  group_by(sex) %>% 
+  summarise(Average_height = mean(height))
+```
